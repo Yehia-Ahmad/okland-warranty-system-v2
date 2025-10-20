@@ -1,4 +1,4 @@
-<div class="w-screen p-4 flex justify-center items-center bg-gray_dark overflow-auto">
+<div class="w-screen min-h-screen p-4 flex justify-center items-center bg-gray_dark overflow-auto">
     <div class="w-full p-8 rounded-3xl flex flex-col justify-start items-start gap-8 bg-dark">
         <div class="w-full flex justify-between items-center">
             <p-select [options]="i18n" [(ngModel)]="selectedLanguage" optionLabel="name" placeholder="Select Language"
@@ -36,7 +36,9 @@
                 Upload Photo
                 <app-upload></app-upload>
             </button>
-            <img [src]="imagePreview" alt="Invoice" class="w-full h-36 object-contain">
+            @if (imagePreview) {
+                <img [src]="imagePreview" alt="Invoice" class="w-full h-36 object-contain">
+            }
             <span class="font-light text-base text-center leading-6 tracking-tight text-orange">
                 Invoice photo must be uploaded with visible data to activate the warranty
             </span>
