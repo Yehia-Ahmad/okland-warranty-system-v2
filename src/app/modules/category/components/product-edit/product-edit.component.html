@@ -1,0 +1,146 @@
+<app-side-nav>
+    <h2 class="text-center text-2xl font-bold font-azonix text-[#878787]">
+        {{ 'category.editProduct.info' | translate }}
+    </h2>
+    <div class="w-3/4 mx-auto flex items-stretch justify-center gap-8">
+        <div class="w-full flex flex-col items-center gap-4 px-10 my-6">
+            <div class="w-full flex flex-col items-start justify-start py-4 px-8 rounded-lg" [ngClass]="{
+                'bg-gray_dark': isDarkMode$ | async,
+                'bg-light_card_bg': !(isDarkMode$ | async)
+            }">
+                <h4 class="text-lg font-semibold font-roboto" [ngClass]="{
+                    'text-light_orange': isDarkMode$ | async,
+                    'text-orange': !(isDarkMode$ | async)
+                }">{{ 'category.editProduct.productName' | translate }}</h4>
+                <h1 class="text-2xl font-bold font-azonix text-orange">{{ product?.name }}</h1>
+            </div>
+            <div class="w-full flex flex-col items-start px-20 py-8 rounded-lg" [ngClass]="{
+                'bg-gray_dark': isDarkMode$ | async,
+                'bg-light_card_bg': !(isDarkMode$ | async)
+            }">
+                <div class="w-full flex items-start py-4 gap-4">
+                    <div class="flex flex-col items-end gap-8 mt-2">
+                        <label class="w-max text-lg capitalize font-medium font-roboto text-orange">
+                            {{ 'category.editProduct.watt' | translate }}
+                        </label>
+                        <label class="w-max text-lg capitalize font-medium font-roboto text-orange">
+                            {{ 'category.editProduct.lumen' | translate }}
+                        </label>
+                    </div>
+                    <div class="w-full flex flex-col items-start gap-4">
+                        <div class="w-full px-4 py-1 rounded-md" [ngClass]="{
+                              'border border-orange bg-light_bg text-orange': !(isDarkMode$ | async),
+                              'bg-gray_dark': (isDarkMode$ | async)
+                            }">
+                            <input type="text"
+                                class="w-full rounded-md p-2 bg-transparent border border-none focus:outline-none"
+                                [(ngModel)]="product.watt" [ngModelOptions]="{standalone: true}" [ngClass]="{
+                                    'text-orange': !(isDarkMode$ | async),
+                                    'text-light_orange ': (isDarkMode$ | async)
+                                }" />
+                        </div>
+                        <div class="w-full px-4 py-1 rounded-md" [ngClass]="{
+                              'border border-orange bg-light_bg text-orange': !(isDarkMode$ | async),
+                              'bg-gray_dark': (isDarkMode$ | async)
+                            }">
+                            <input type="text"
+                                class="w-full rounded-md p-2 bg-transparent border border-none focus:outline-none"
+                                [(ngModel)]="product.lumen" [ngModelOptions]="{standalone: true}" [ngClass]="{
+                                    'text-orange': !(isDarkMode$ | async),
+                                    'text-light_orange ': (isDarkMode$ | async)
+                                }" />
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full flex flex-col items-start py-4 gap-4">
+                    <div class="flex flex-col items-end gap-8 mt-2">
+                        <label class="text-lg capitalize font-medium font-roboto text-orange">
+                            {{ 'category.editProduct.description' | translate }}
+                        </label>
+                    </div>
+                    <div class="w-full flex flex-col items-start gap-4">
+                        <div class="w-full px-4 py-1 rounded-md" [ngClass]="{
+                              'border border-orange bg-light_bg text-orange': !(isDarkMode$ | async),
+                              'bg-gray_dark': (isDarkMode$ | async)
+                            }">
+                            <textarea
+                                class="w-full rounded-md p-2 bg-transparent border border-none focus:outline-none"
+                                rows="3" cols="30" [(ngModel)]="product.description" [ngModelOptions]="{standalone: true}" [ngClass]="{
+                                    'text-orange': !(isDarkMode$ | async),
+                                    'text-light_orange ': (isDarkMode$ | async)
+                                }" ></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="w-full flex flex-col items-center justify-center gap-4 px-10 my-6 rounded-lg" [ngClass]="{
+                'bg-gray_dark': isDarkMode$ | async,
+                'bg-light_card_bg': !(isDarkMode$ | async)
+            }">
+            <img [src]="product?.image" alt="product" class="rounded-lg" width="200" height="500">
+            <input type="file" (change)="onBasicUploadAuto($event)" accept="image/*" class="hidden" #fileInput>
+            <button class="w-max text-xl font-semibold font-roboto capitalize text-[#878787] bg-dark rounded-md py-1 px-12" (click)="fileInput.click()">
+                Change
+            </button>
+        </div>
+    </div>
+    <div class="w-full flex items-center justify-between my-6 mx-auto px-12">
+        <button class="px-8 py-1 text-xl font-semibold font-roboto capitalize bg-red text-dark rounded-md" (click)="showDeleteDialog()">
+            {{ 'category.deleteProduct.title' | translate }}
+        </button>
+        <button class="px-8 py-1 text-xl font-semibold font-roboto capitalize disabled:opacity-50 disabled:cursor-wait bg-orange text-dark rounded-md" [disabled]="loading" (click)="updateProduct()">
+            {{ 'category.editProduct.actions.save' | translate }}
+        </button>
+    </div>
+
+    <p-dialog [(visible)]="deleteVisible" styleClass="!border-0" [style]="{ width: '50vw' }">
+        <ng-template #headless>
+            <div class="flex flex-col px-8 py-8 gap-6 rounded-2xl bg-[#393939]">
+                <div class="w-full flex items-center justify-center">
+                    <app-warn></app-warn>
+                </div>
+                <div class="flex items-center justify-center">
+                    <h1 class="text-4xl font-bold font-azonix text-orange">{{ 'category.deleteProduct.title' | translate }}</h1>
+                </div>
+                <h6 class="text-lg text-center font-semibold font-roboto text-light_orange">
+                    {{ 'category.deleteProduct.deleteMessage' | translate }}
+                </h6>
+                <div class="mx-auto flex items-center justify-between gap-8">
+                    <button (click)="closeDialog()"
+                        styleClass="" [style]="{ fontWeight: 600 }"
+                        class="w-max px-4 py-2 uppercase text-2xl font-semibold rounded-md text-gray_dark bg-orange font-roboto border border-white/30">
+                        {{ 'category.deleteProduct.actions.cancelButton' | translate }}
+                    </button>
+                    <button (click)="closeDialog()"
+                        class="px-4 py-2 w-max uppercase text-xl font-semibold rounded-md text-light_orange bg-red font-roboto border border-white/30" (click)="deleteProduct()"
+                        >
+                        {{ 'category.deleteProduct.actions.deleteButton' | translate }}
+                    </button>
+                </div>
+            </div>
+        </ng-template>
+    </p-dialog>
+
+    <p-dialog [(visible)]="errorVisible" [modal]="true" [closable]="true" [dismissableMask]="true"
+        [style]="{ width: '400px' }" styleClass="!border-0">
+        <ng-template #headless>
+            <div class="flex flex-col gap-4 p-6 rounded-2xl" [ngClass]="{
+                    'bg-gray': isDarkMode$ | async,
+                    'bg-light_card_bg': !(isDarkMode$ | async)
+                }">
+                <app-error-icon class="mx-auto"></app-error-icon>
+                <p class="text-center" [ngClass]="{ 
+                        'text-light_orange': isDarkMode$ | async,
+                        'text-gray_dark': !(isDarkMode$ | async)
+                     }">{{ errorMessage }}</p>
+                <div class="flex justify-center mt-4">
+                    <button type="button" class="px-6 py-2 rounded-lg text-white bg-[#FF9933] hover:opacity-90"
+                        (click)="errorVisible = false">
+                        OK
+                    </button>
+                </div>
+            </div>
+        </ng-template>
+    </p-dialog>
+</app-side-nav>

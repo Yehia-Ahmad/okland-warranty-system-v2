@@ -1,0 +1,48 @@
+<div class="w-screen p-4 flex justify-center items-center bg-gray_dark overflow-auto">
+    <div class="w-full p-8 rounded-3xl flex flex-col justify-start items-start gap-8 bg-dark">
+        <div class="w-full flex justify-between items-center">
+            <p-select [options]="i18n" [(ngModel)]="selectedLanguage" optionLabel="name" placeholder="Select Language"
+                class="custom-select w-32" />
+            <app-mode></app-mode>
+        </div>
+        <div class="w-full flex flex-col justify-start items-center mt-4">
+            <img src="assets/img/lion.png" alt="Logo" class="h-28">
+            <img src="assets/img/Okland Typography (Orange).png" class="w-32 mb-1" alt="Logo">
+            <h2 class="block sm:text-sm lg:text-xl tracking-widest font-azonix text-light_orange">
+                WARRANTY
+            </h2>
+        </div>
+        <div class="w-full flex flex-col justify-start items-start">
+            <span class="font-medium text-base leading-7 tracking-wider mb-1 text-orange">
+                User Information
+            </span>
+            <input type="text" placeholder="Your Full Name"
+                class="w-full px-4 py-2 mb-4 bg-transparent border border-gray-500 rounded-md text-orange focus:outline-none focus:border-orange text-sm" [(ngModel)]="activateForm.username" />
+            <input type="text" placeholder="Your Phone Number"
+                class="w-full px-4 py-2 bg-transparent border border-gray-500 rounded-md text-orange focus:outline-none focus:border-orange text-sm" [(ngModel)]="activateForm.number"/>
+        </div>
+        <div class="w-full flex flex-col justify-start items-start">
+            <span class="font-medium text-base leading-7 tracking-wider mb-1 text-orange">
+                Invoice Information
+            </span>
+            <input type="text" placeholder="Branch Name"
+                class="w-full px-4 py-2 mb-4 bg-transparent border border-gray-500 rounded-md text-orange focus:outline-none focus:border-orange text-sm" [(ngModel)]="activateForm.branchName"/>
+            <input type="text" placeholder="Branch Number"
+                class="w-full px-4 py-2 bg-transparent border border-gray-500 rounded-md text-orange focus:outline-none focus:border-orange text-sm" [(ngModel)]="activateForm.branchNumber"/>
+        </div>
+        <div class="w-full flex flex-col justify-start items-center gap-8">
+            <input type="file" accept="image/*" class="hidden" #fileInput (change)="onBasicUploadAuto($event)" />
+            <button class="w-max py-2 px-4 flex items-center gap-2 bg-orange text-[#2c2c2c] font-semibold rounded-md hover:bg-[#ffa733] transition-colors font-sans text-sm" (click)="fileInput.click()">
+                Upload Photo
+                <app-upload></app-upload>
+            </button>
+            <img [src]="imagePreview" alt="Invoice" class="w-full h-36 object-contain">
+            <span class="font-light text-base text-center leading-6 tracking-tight text-orange">
+                Invoice photo must be uploaded with visible data to activate the warranty
+            </span>
+            <button class="w-max py-2 px-4 flex items-center gap-2 font-medium text-xl uppercase rounded-md font-roboto text-dark bg-blue" (click)="activateWarranty()" >
+                Activate Warranty
+            </button>
+        </div>
+    </div>
+</div>

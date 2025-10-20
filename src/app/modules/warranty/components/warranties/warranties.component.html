@@ -1,0 +1,175 @@
+<app-side-nav>
+    <div class="w-full flex flex-col items-start gap-8">
+        <div class="w-full flex items-center justify-center">
+            <h1 class="text-2xl font-bold font-azonix text-gray_light">{{ 'warranty.title' | translate}}</h1>
+        </div>
+        <div class="w-full flex items-center justify-between">
+            <div class="sm:w-1/5 lg:min-w-[25%] py-2 px-2 rounded-md hidden sm:block" [ngClass]="{
+                'text-orange bg-gray_dark': isDarkMode$ | async,
+                'border border-orange bg-light_bg text-orange': !(isDarkMode$ | async),
+            }">
+                <input class="w-full border-none outline-none focus:border-none focus:outline-none bg-transparent" [ngClass]="{
+                        'text-orange': !(isDarkMode$ | async),
+                        'text-light_orange ': (isDarkMode$ | async)
+                    }" placeholder="{{'searchPlaceholder' | translate}}" type="text" [(ngModel)]="search" (ngModelChange)="onSearchChange($event)" />
+            </div>
+            <div class="sm:w-1/5 lg:min-w-[25%] px-2 rounded-md hidden sm:block" [ngClass]="{
+                'text-orange bg-gray_dark': isDarkMode$ | async,
+                'border border-orange bg-light_bg text-orange': !(isDarkMode$ | async),
+            }">
+                <p-datepicker  class="w-full bg-transparent" [(ngModel)]="date" (change)="getAllWarranties()" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" />
+            </div>
+        </div>
+        <div class="w-full p-4 pb-0 rounded-xl" [ngClass]="{
+            'bg-gray_dark': isDarkMode$ | async,
+            'bg-light_card_bg': !(isDarkMode$ | async)
+        }">
+            <table class="w-full border-collapse text-sm text-gray-300">
+                <thead>
+                    <tr class="bg-[#515151] text-gray-200 uppercase text-xs rounded-md">
+                        <th class="py-3 px-4 uppercase text-left text-[#a1a1a1]">{{ 'tableHeaders.product' | translate}}</th>
+                        <th class="py-3 px-4 uppercase text-left text-[#a1a1a1]">{{ 'tableHeaders.model' | translate}}</th>
+                        <th class="py-3 px-4 uppercase text-left text-[#a1a1a1]">{{ 'tableHeaders.username' | translate}}</th>
+                        <th class="py-3 px-4 uppercase text-left text-[#a1a1a1]">{{ 'tableHeaders.number' | translate}}</th>
+                        <th class="py-3 px-4 uppercase text-left text-[#a1a1a1]">{{ 'tableHeaders.invoice' | translate}}</th>
+                        <th class="py-3 px-4 uppercase text-left text-[#a1a1a1]">{{ 'tableHeaders.remining' | translate}}</th>
+                        <th class="py-3 px-4 uppercase text-left text-[#a1a1a1]">{{ 'tableHeaders.expiry' | translate}}</th>
+                        <th class="py-3 px-4 uppercase text-center text-[#a1a1a1]">{{ 'tableHeaders.actions' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for(warranty of warranties;track $index){
+                    <tr class="" [ngClass]="{'border-b border-b-light_orange': $index < warranties.length - 1}">
+                        <td class="py-4 px-4 border-r border-r-[#a1a1a1]" [ngClass]="{
+                                'text-light_orange': isDarkMode$ | async,
+                                'text-orange': !(isDarkMode$ | async)
+                            }">{{ warranty.product.name }}</td>
+                        <td class="py-4 px-4 border-r border-r-[#a1a1a1]" [ngClass]="{
+                                'text-light_orange': isDarkMode$ | async,
+                                'text-orange': !(isDarkMode$ | async)
+                            }">{{ warranty.model.name }}</td>
+                        <td class="py-4 px-4 border-r border-r-[#a1a1a1]" [ngClass]="{
+                                'text-light_orange': isDarkMode$ | async,
+                                'text-orange': !(isDarkMode$ | async)
+                            }">{{ warranty.username }}</td>
+                        <td class="py-4 px-4 border-r border-r-[#a1a1a1]" [ngClass]="{
+                                'text-light_orange': isDarkMode$ | async,
+                                'text-orange': !(isDarkMode$ | async)
+                            }">{{ warranty.number }}</td>
+                        <td class="py-4 px-4 border-r border-r-[#a1a1a1]" [ngClass]="{
+                                'text-light_orange': isDarkMode$ | async,
+                                'text-orange': !(isDarkMode$ | async)
+                            }">
+                            <img src="{{ warranty.fullUrl }}" alt="Invoice" class="w-16 h-16">
+                        </td>
+                        <td class="py-4 px-4 border-r border-r-[#a1a1a1]" [ngClass]="{
+                                'text-light_orange': isDarkMode$ | async,
+                                'text-orange': !(isDarkMode$ | async)
+                            }">{{ warranty.remainingDays }}</td>
+                        <td class="py-4 px-4 border-r border-r-[#a1a1a1]" [ngClass]="{
+                                'text-light_orange': isDarkMode$ | async,
+                                'text-orange': !(isDarkMode$ | async)
+                            }">{{ warranty.expiryDate | date : 'yyyy-MM-dd' }}</td>
+                        <td class="py-4 px-4 text-center">
+                            <div class="flex flex-col items-start gap-4">
+                                <button
+                                    class="bg-blue text-[#1f1f1f] capitalize font-semibold px-4 py-1 rounded-md mr-2"
+                                    (click)="showDialog('change', warranty)">
+                                    {{ 'showQR' | translate}}
+                                </button>
+                                <button
+                                    class="bg-[#e84c0d] hover:bg-[#c43f0b] capitalize text-white font-semibold px-4 py-1 rounded-md"
+                                    (click)="showDeleteDialog(warranty)">
+                                    {{ 'delete' | translate }}
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+        @if(warranties.length != 0){
+            <!-- Pagination -->
+            <!-- <div class="mx-auto">
+                <p-paginator (onPageChange)="onPageChange1($event)" [first]="1" [rows]="1" [totalRecords]="120"
+                    [showFirstLastIcon]="false" />
+            </div> -->
+            <app-pagination class="mx-auto" [totalPages]="totalPages" [currentPage]="currentPage" (pageChange)="onPageChange($event)"></app-pagination>
+        }
+
+    </div>
+    <p-dialog [modal]="true" [(visible)]="visible" [style]="{ width: '35vw', height: '68vh' }">
+        <div class="w-full h-full flex flex-col items-center justify-center gap-8">
+            <div class="w-full flex flex-col items-center">
+                <span class="font-semibold text-lg leading-7 tracking-wider text-light_orange">{{ 'warranty.productName' | translate }}</span>
+                <div class="w-full flex items-center justify-center rounded-md py-4 font-bold text-2xl leading-7 tracking-wide font-roboto text-orange bg-[#1f1f1f]">
+                    {{ selectedWarranty?.product?.name }}
+                </div>
+            </div>
+            <div class="w-full flex flex-col items-center">
+                <span class="font-semibold text-lg leading-7 tracking-wider text-light_orange">
+                    {{ 'warranty.modal' | translate }}
+                </span>
+                <div class="w-full flex items-center justify-center rounded-md py-4 font-bold text-2xl leading-7 tracking-wide font-roboto text-gray_light bg-[#1f1f1f]">
+                    {{ selectedWarranty?.model?.name }}
+                </div>
+            </div>
+            @if(selectedWarranty?.modal?.qrCodes.length > 0) {
+                <qrcode [qrdata]="selectedWarranty?.modal?.qrCodes[0]?.code" [width]="150" [errorCorrectionLevel]="'M'"></qrcode>
+            }
+        </div>
+    </p-dialog>
+    <p-dialog [(visible)]="deleteVisible" styleClass="!border-0">
+        <ng-template #headless>
+            <div class="flex flex-col px-8 py-8 gap-6 rounded-2xl bg-[#393939]">
+                <div class="w-full flex items-center justify-center">
+                    <app-warn></app-warn>
+                </div>
+                <div class="flex items-center justify-center">
+                    <h1 class="text-4xl font-bold font-azonix text-orange">{{ 'warranty.deleteWarranty.title' | translate }}</h1>
+                </div>
+                <h6 class="text-lg font-semibold font-roboto text-light_orange">
+                    {{ 'warranty.deleteWarranty.deleteMessage' | translate }}
+                </h6>
+                <div class="w-max mx-auto my-2 px-10 py-4 flex flex-col items-center justify-center rounded-md bg-[#1f1f1f]">
+                    <span class="font-light text-base leading-7 tracking-wider text-orange">
+                        {{ 'warranty.deleteWarranty.warrantyExpiries' | translate }}
+                    </span>
+                    <span class="font-semibold text-4xl leading-7 tracking-wider text-blue">27/9/2026</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <p-button label="{{ 'warranty.actions.cancelButton' | translate }}" (click)="closeDialog()" [text]="true"
+                        styleClass="!p-4 w-full !uppercase !text-xl !font-bold !text-gray_dark !bg-orange !font-roboto !border !border-white/30"
+                        class="w-full" />
+                    <p-button label="{{ 'warranty.actions.deleteButton' | translate }}" (click)="closeDialog()" [text]="true"
+                        styleClass="!p-4 w-full !uppercase !text-xl !font-bold !text-light_orange !bg-red !font-roboto !border !border-white/30"
+                        class="w-full" />
+                </div>
+            </div>
+        </ng-template>
+    </p-dialog>
+
+    <p-dialog [(visible)]="errorVisible" [modal]="true" [closable]="true" [dismissableMask]="true"
+        [style]="{ width: '400px' }" styleClass="!border-0">
+        <ng-template #headless>
+            <div class="flex flex-col gap-4 p-6 rounded-2xl" [ngClass]="{
+                    'bg-gray': isDarkMode$ | async,
+                    'bg-light_card_bg': !(isDarkMode$ | async)
+                }">
+                <app-error-icon class="mx-auto"></app-error-icon>
+                <p class="text-center" [ngClass]="{ 
+                        'text-light_orange': isDarkMode$ | async,
+                        'text-gray_dark': !(isDarkMode$ | async)
+                     }">{{ errorMessage }}</p>
+                <div class="flex justify-center mt-4">
+                    <button type="button" class="px-6 py-2 rounded-lg text-white bg-[#FF9933] hover:opacity-90"
+                        (click)="errorVisible = false">
+                        OK
+                    </button>
+                </div>
+            </div>
+        </ng-template>
+    </p-dialog>
+</app-side-nav>

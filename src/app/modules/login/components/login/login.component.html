@@ -1,0 +1,103 @@
+<div class="min-h-screen flex items-center justify-center bg-gray_dark p-4 overflow-auto" [ngClass]="{
+    'bg-gray_dark': isDarkMode$ | async,
+    'bg-light_card_bg': !(isDarkMode$ | async)
+}">
+    <div
+        class="flex flex-col md:flex-row bg-gray_dark rounded-2xl w-full h-[95vh] p-4 sm:p-6 md:p-12 max-h-[700px]:p-2" [ngClass]="{
+            'bg-gray_dark': isDarkMode$ | async,
+            'bg-light_card_bg': !(isDarkMode$ | async)
+        }">
+
+        <div
+            class="flex flex-col md:flex-row rounded-2xl shadow-2xl w-full p-4 sm:p-6 md:p-12 max-[700px]:p-4 max-[700px]:space-y-2" [ngClass]="{
+                'bg-[#111111]': isDarkMode$ | async,
+                'bg-light_card_bg': !(isDarkMode$ | async)
+            }">
+
+            <!-- Left Section -->
+            <div
+                class="flex flex-col justify-center items-center text-center bg-[#111111] text-white p-6 sm:p-8 md:p-10 md:w-1/2 space-y-6 sm:space-y-8 max-[700px]:p-4 max-[700px]:space-y-4 max-[700px]:scale-90 max-[700px]:transform" [ngClass]="{
+                'bg-[#111111]': isDarkMode$ | async,
+                'bg-light_card_bg': !(isDarkMode$ | async)
+            }">
+
+                <!-- Logo -->
+                <div
+                    class="flex flex-col sm:flex-row items-center sm:items-start sm:space-x-4 space-y-4 sm:space-y-0 max-[700px]:scale-90">
+                    <img src="assets/img/lion.png" alt="Logo" class="h-20 sm:h-24 md:h-28 max-[700px]:h-60">
+                    <div class="flex flex-col items-center sm:items-start space-y-0 mt-2 sm:mt-4">
+                        <img src="assets/img/Okland Typography (Orange).png" class="mb-1 mt-4 w-[130px] lg:w-[200px]" alt="Logo">
+                        <h2
+                            class="text-xl lg:text-3xl tracking-widest font-azonix max-[700px]:text-sm" [ngClass]="{
+                                'text-light_orange': isDarkMode$ | async,
+                                'text-orange': !(isDarkMode$ | async)
+                            }">
+                            WARRANTY
+                        </h2>
+                        <h2
+                            class="text-xl lg:text-3xl transform translate-y-[-5px] sm:translate-y-[-10px] tracking-widest font-azonix text-light_orange max-[700px]:text-sm" [ngClass]="{
+                                'text-light_orange': isDarkMode$ | async,
+                                'text-orange': !(isDarkMode$ | async)
+                            }">
+                            SYSTEM
+                        </h2>
+                    </div>
+                </div>
+
+                <!-- Invoice Card -->
+                <app-invoice-card class="max-[700px]:scale-75 max-[700px]:transform"></app-invoice-card>
+            </div>
+
+            <!-- Right Section -->
+            <div
+                class="bg-gray_dark text-white p-6 sm:p-8 md:p-10 md:w-1/2 flex flex-col justify-center items-center space-y-6 sm:space-y-8 rounded-2xl max-[700px]:p-4 max-[700px]:space-y-4 max-[700px]:scale-90 max-[700px]:transform" [ngClass]="{
+                    'bg-gray_dark': isDarkMode$ | async,
+                    'bg-light_card_bg': !(isDarkMode$ | async)
+                }">
+                <div class="text-center space-y-2">
+                    <h2
+                        class="text-orange text-xl md:text-2xl lg:text-4xl 2xl:text-6xl font-semibold tracking-widest font-azonix max-[700px]:text-lg">
+                        WELCOME BACK
+                    </h2>
+                    <p
+                        class="font-semibold text-base sm:text-xl transform translate-y-[-8px] text-[#929292] font-roboto max-[700px]:text-sm max-[700px]:translate-y-[-6px]">
+                        To the System
+                    </p>
+                </div>
+
+                <form class="w-full flex flex-col items-center space-y-4 max-[700px]:space-y-3" [formGroup]="loginForm" (ngSubmit)="login()">
+                    <input type="text" placeholder="Username"
+                        class="w-3/4 px-4 py-2 bg-transparent border border-gray-500 rounded-md text-gray-200 focus:outline-none focus:border-orange text-sm sm:text-base max-[700px]:py-1.5" formControlName="email" />
+                    <input type="password" placeholder="Password"
+                        class="w-3/4 px-4 py-2 bg-transparent border border-gray-500 rounded-md text-gray-200 focus:outline-none focus:border-orange text-sm sm:text-base max-[700px]:py-1.5" formControlName="password" />
+                    <button type="submit" [disabled]="!loginForm.valid"
+                        class="w-auto px-6 sm:px-8 py-2 bg-orange text-[#2c2c2c] font-semibold rounded-md hover:bg-[#ffa733] transition-colors font-sans text-sm sm:text-base max-[700px]:py-1.5 max-[700px]:px-4 disabled:opacity-50 disabled:cursor-not-allowed">
+                        SIGN IN
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-dialog [(visible)]="errorVisible" [modal]="true" [closable]="true" [dismissableMask]="true"
+    [style]="{ width: '400px' }" styleClass="!border-0">
+    <ng-template #headless>
+        <div class="flex flex-col gap-4 p-6 rounded-2xl" [ngClass]="{
+                    'bg-gray': isDarkMode$ | async,
+                    'bg-light_card_bg': !(isDarkMode$ | async)
+                }">
+            <app-error-icon class="mx-auto"></app-error-icon>
+            <p class="text-center" [ngClass]="{ 
+                        'text-light_orange': isDarkMode$ | async,
+                        'text-gray_dark': !(isDarkMode$ | async)
+                     }">{{ errorMessage }}</p>
+            <div class="flex justify-center mt-4">
+                <button type="button" class="px-6 py-2 rounded-lg text-white bg-[#FF9933] hover:opacity-90"
+                    (click)="errorVisible = false">
+                    OK
+                </button>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>

@@ -1,0 +1,48 @@
+/* 🌞 Light mode */
+:host ::ng-deep .light-mode-select .p-select-label {
+    background: transparent !important;
+    color: #ff9933 !important;
+}
+
+:host ::ng-deep .light-mode-select .p-select-dropdown {
+    background: transparent !important;
+    color: #ff9933 !important;
+}
+
+:host ::ng-deep .light-mode-select {
+    border: 1px solid #ff9933 !important;
+}
+
+/* 🌙 Dark mode */
+:host ::ng-deep .dark-mode-select .p-select-label {
+    background: #4d4d4d !important;
+    color: #ff9933 !important;
+}
+
+:host ::ng-deep .dark-mode-select .p-select-dropdown {
+    background: #4d4d4d !important;
+    color: #ff9933 !important;
+}
+
+:host ::ng-deep .dark-mode-select {
+    border: 1px solid #ff9933 !important;
+}
+
+/* Shared focus and selected states */
+::ng-deep .p-select:not(.p-disabled).p-focus {
+    border-color: #ff9933 !important;
+}
+
+::ng-deep .p-select-option.p-select-option-selected {
+    color: #ff9933 !important;
+    background: #4d4d4d !important;
+}
+
+::ng-deep .p-select-option:not(.p-select-option-selected):not(.p-disabled).p-focus {
+    color: #ff9933 !important;
+    background: #4d4d4d !important;
+}
+
+::ng-deep .p-select-list {
+    padding: unset !important;
+}

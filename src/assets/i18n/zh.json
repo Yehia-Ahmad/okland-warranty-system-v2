@@ -1,0 +1,211 @@
+{
+  "ProductTitle": "产品列表",
+  "searchPlaceholder": "搜索 ...",
+  "sidebarTitles": {
+    "mainitems": "主要项目",
+    "admins": "管理员",
+    "addAdmins": "添加管理员",
+    "showAdmins": "查看管理员",
+    "products": "产品",
+    "addProducts": "添加产品",
+    "showProducts": "查看产品",
+    "categories": "类别",
+    "warranties": "保修",
+    "add_new_category": "添加新类别"
+  },
+  "addProduct": "添加产品",
+  "tableHeaders": {
+    "name": "姓名",
+    "username": "用户名",
+    "number": "号码",
+    "email": "电子邮件",
+    "role": "角色",
+    "product": "产品",
+    "model": "型号",
+    "invoice": "发票",
+    "remining": "剩余",
+    "expiry": "到期",
+    "type": "类型",
+    "description": "描述",
+    "warranty": "保修",
+    "expiryDate": "到期日期",
+    "actions": "操作"
+  },
+  "showQR": "显示二维码",
+  "delete": "删除",
+  "qrCodesForProduct": "产品二维码",
+  "printQRCode": "🖨️ 打印二维码",
+  "copies": "份数",
+  "errors": {
+    "invalidProductId": "收到无效的产品ID",
+    "uniqueNameRequired": "您应输入唯一名称",
+    "errorMsgToShowProducts": "加载产品失败",
+    "genericError": "出了些问题",
+    "fetchError": "获取管理员列表出错",
+    "notFound": "管理员未找到",
+    "deleteError": "删除管理员出错"
+  },
+  "product": {
+    "product": "产品",
+    "noDescription": "无可用描述",
+    "newProduct": "新产品",
+    "createNewProduct": "创建新产品",
+    "form": {
+      "name": "产品名称",
+      "type": "产品类型",
+      "warranty": "保修期",
+      "description": "产品描述"
+    },
+    "actions": {
+      "creationSuccess": "产品创建成功！",
+      "backToList": "返回列表",
+      "saving": "保存中...",
+      "saveButton": "保存产品"
+    }
+  },
+  "admin": {
+    "title": "管理员",
+    "createNewAdmin": "创建新管理员",
+    "form": {
+      "username": "用户名",
+      "phone": "电话号码",
+      "email": "电子邮件",
+      "password": "密码",
+      "role": "角色"
+    },
+    "roles": {
+      "admin": "管理员",
+      "moderator": "版主"
+    },
+    "actions": {
+      "creating": "创建中...",
+      "createAdmin": "创建管理员",
+      "deleteSuccess": "管理员删除成功"
+    },
+    "change_Button": "更改",
+    "remove_Button": "删除",
+    "list_Title": "管理员列表",
+    "add_Button": "添加管理员"
+  },
+  "category": {
+    "add_new_category": "添加新类别",
+    "pressAddModel": "按“添加模型”",
+    "printQr": "打印二维码",
+    "info": "对于每个产品，仅当产品升级以更改其规格时才编辑产品。",
+    "name": "名称",
+    "namePlaceholder": "类别名称",
+    "description": "描述",
+    "descriptionPlaceholder": "类别描述",
+    "addProduct": {
+      "title": "添加产品",
+      "productName": "产品名称",
+      "watt": "瓦数",
+      "lumen": "流明",
+      "description": "产品描述",
+      "category": "产品类别",
+      "uploadImage": "上传图片",
+      "actions": {
+        "save": "保存产品",
+        "creating": "正在创建..."
+      }
+    },
+    "editProduct": {
+      "info": "编辑产品详情",
+      "title": "编辑产品",
+      "productName": "产品名称",
+      "watt": "瓦数",
+      "lumen": "流明",
+      "description": "产品描述",
+      "category": "产品类别",
+      "uploadImage": "上传图片",
+      "changeImage": "更改图像",
+      "actions": {
+        "save": "保存产品",
+        "creating": "正在创建...",
+        "DeleteButton": "删除产品"
+      }
+    },
+    "deleteProduct": {
+      "title": "删除产品",
+      "deleteMessage": "您确定要删除该产品吗？",
+      "actions": {
+        "deleteButton": "删除产品",
+        "cancelButton": "取消"
+      }
+    },
+    "addModel": {
+      "title": "添加型号",
+      "forProduct": "对应产品",
+      "model": "型号",
+      "modelPlaceholder": "型号名称",
+      "quantity": "数量",
+      "quantityPlaceholder": "输入数量",
+      "actions": {
+        "createQRs": "生成二维码",
+        "creating": "正在生成...",
+        "createModel": "创建型号",
+        "deleteSuccess": "型号已成功删除"
+      }
+    },
+    "qrCodes": {
+      "title": "型号二维码"
+    },
+    "actions": {
+      "creating": "创建中...",
+      "createCategory": "创建类别",
+      "deleteSuccess": "类别删除成功"
+    },
+    "saveButton": "保存",
+    "isSaving": "保存中...",
+    "add_Button": "添加",
+    "list_Title": "类别列表",
+    "delete_Button": "删除",
+    "change_Button": "更改"
+  },
+  "validationForm": {
+    "name": "姓名",
+    "phone": "电话",
+    "shopName": "商店名称",
+    "shopNumber": "商店编号",
+    "purchaseDate": "购买日期",
+    "invoicePhoto": "发票照片",
+    "userInfo": "用户信息",
+    "invoiceInfo": "发票信息",
+    "browsePhoto": "浏览照片"
+  },
+  "warrant": {
+    "oklandWarranty": "奥克兰公司保修",
+    "expiresOn": "保修到期日",
+    "activate": "激活保修",
+    "success": "保修激活成功！",
+    "failure": "保修激活失败",
+    "validation": "必须上传显示日期的发票照片才能激活保修"
+  },
+  "upload": {
+    "uploading": "上传中...",
+    "complete": "上传完成"
+  },
+  "showWarranty": "显示保修信息",
+  "viewAllWarranties": "查看全部保修",
+  "warranty": {
+    "title": "保修仪表板",
+    "invoicePhoto": "发票照片",
+    "productName": "产品名称",
+    "modal": "型号",
+    "deleteWarranty": {
+      "title": "删除保修",
+      "deleteMessage": "您确定要删除此保修吗？",
+      "warrantyExpiries": "保修到期时间",
+      "actions": {
+        "deleteButton": "是的，删除",
+        "cancelButton": "不，取消"
+      }
+    }
+  },
+  "logout": {
+    "title": "退出登录",
+    "logoutMessage": "您确定要退出登录吗？",
+    "logoutButton": "是",
+    "cancelButton": "否"
+  }
+}

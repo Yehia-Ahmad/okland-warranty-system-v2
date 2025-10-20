@@ -1,0 +1,47 @@
+<div class="w-full flex justify-between items-center px-8" [ngClass]="{
+    'bg-light_bg text-orange': !(isDarkMode$ | async),
+    'bg-dark': (isDarkMode$ | async)
+  }">
+    <div class="flex items-center space-x-4">
+        <app-menu-open class="cursor-pointer" (click)="toggleSidenav()"></app-menu-open>
+
+        <div class="items-center space-x-2 hidden sm:flex">
+            <img src="/assets/img/lion.png" alt="Logo" class="sm:h-8 lg:h-16" />
+            <div class="flex flex-col space-y-2">
+                <img src="/assets/img/Okland Typography (Orange).png" class="sm:w-16 sm:h-4 lg:w-28 lg:h-6"
+                    alt="Logo" />
+                <h2 class="block sm:text-sm lg:text-xl tracking-widest font-azonix" [ngClass]="{
+                  'text-orange': !(isDarkMode$ | async),
+                  'text-light_orange': (isDarkMode$ | async)
+                }">
+                    WARRANTY SYSTEM
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="sm:w-1/5 lg:min-w-[25%] py-2 px-2 rounded-md hidden sm:block" [ngClass]="{
+      'border border-orange bg-light_bg text-orange': !(isDarkMode$ | async),
+      'bg-gray_dark': (isDarkMode$ | async)
+    }">
+        <input class="w-full border-none outline-none focus:border-none focus:outline-none bg-transparent"
+            placeholder="{{ 'searchPlaceholder' | translate }}" />
+    </div>
+
+    <div class="flex items-center space-x-4">
+        <p-select [options]="i18n" [(ngModel)]="currentLang" (ngModelChange)="onLanguageChange($event)" optionLabel="name"
+            optionValue="id" placeholder="Select Language" class="custom-select w-32" [ngClass]="{
+              'light-mode-select': !(isDarkMode$ | async),
+              'dark-mode-select': (isDarkMode$ | async)
+            }"></p-select>
+
+        <button class="flex items-center justify-center border-none outline-none bg-transparent"
+            (click)="toggleDarkMode()">
+            @if (isDarkMode$ | async) {
+            <app-mode></app-mode>
+            } @else {
+            <app-moon></app-moon>
+            }
+        </button>
+    </div>
+</div>

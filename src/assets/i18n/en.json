@@ -1,0 +1,211 @@
+{
+    "ProductTitle": "Product List",
+    "searchPlaceholder": "Search ...",
+    "sidebarTitles": {
+        "mainitems": "Main Items",
+        "admins": "Admins",
+        "addAdmins": "Add Admins",
+        "showAdmins": "Show Admins",
+        "products": "Products",
+        "addProducts": "Add Products",
+        "showProducts": "Show Products",
+        "categories": "Categories",
+        "warranties": "Warranties",
+        "add_new_category": "Add New Category"
+    },
+    "addProduct": "Add Product",
+    "tableHeaders": {
+        "name": "Name",
+        "username": "Username",
+        "number": "Number",
+        "email": "Email",
+        "role": "Role",
+        "product": "Product",
+        "model": "Model",
+        "invoice": "Invoice", 
+        "remining": "Remining",
+        "expiry": "Expiry",
+        "type": "Type",
+        "description": "Description",
+        "warranty": "Warranty",
+        "expiryDate": "Expiry Date",
+        "actions": "Actions"
+    },
+    "showQR": "Show QR",
+    "delete": "Delete",
+    "qrCodesForProduct": "QR Codes for Product",
+    "printQRCode": "🖨️ Print QR Code",
+    "copies": "Copies",
+    "errors": {
+        "invalidProductId": "Invalid product ID received.",
+        "uniqueNameRequired": "You Should Enter Unique Name",
+        "errorMsgToShowProducts": "Failed to load products",
+        "genericError": "Something went wrong.",
+        "fetchError": "Error fetching admins",
+        "notFound": "Admin not found",
+        "deleteError": "Error deleting admin"
+    },
+    "product": {
+        "product": "Product",
+        "noDescription": "No description available",
+        "newProduct": "New Product",
+        "createNewProduct": "Create New Product",
+        "form": {
+            "name": "Product Name",
+            "type": "Product Type",
+            "warranty": "Warranty Period",
+            "description": "Product Description"
+        },
+        "actions": {
+            "creationSuccess": "Product created successfully!",
+            "backToList": "Back to List",
+            "saving": "Saving...",
+            "saveButton": "Save Product"
+        }
+    },
+    "admin": {
+        "title": "system admins",
+        "createNewAdmin": "Create New Admin",
+        "form": {
+            "username": "Username",
+            "phone": "Phone Number",
+            "email": "Email",
+            "password": "Password",
+            "role": "Role"
+        },
+        "roles": {
+            "admin": "Admin",
+            "moderator": "Moderator"
+        },
+        "actions": {
+            "creating": "Creating...",
+            "createAdmin": "Create Admin",
+            "deleteSuccess": "Admin deleted successfully"
+        },
+        "change_Button": "Change",
+        "remove_Button": "Delete",
+        "list_Title": "Admin List",
+        "add_Button": "Add Admin"
+    },
+    "category": {
+        "add_new_category": "Add New Category",
+        "pressAddModel": "Press Add Model to",
+        "printQr": "Print QR codes",
+        "info": "for each product Edit Product ONLY when it's upgraded to change its specifications.",
+        "name": "Name",
+        "namePlaceholder": "Enter Category Name",
+        "description": "Description",
+        "descriptionPlaceholder": "Enter Category Description",
+        "addProduct": {
+            "title": "Add Product",
+            "productName": "Product Name",
+            "watt": "Watt",
+            "lumen": "Lumen",
+            "description": "Product Description",
+            "category": "Product Category",
+            "uploadImage": "Upload Image",
+            "actions": {
+                "save": "Save Product",
+                "creating": "Creating..."
+            }
+        },
+        "editProduct": {
+            "info": "Editting Product Details",
+            "title": "Edit Product",
+            "productName": "Product Name",
+            "watt": "Watt",
+            "lumen": "Lumen",
+            "description": "Product Description",
+            "category": "Category",
+            "uploadImage": "Upload Image",
+            "changeImage": "Change Image",
+            "actions": {
+                "save": "Save & Exit",
+                "creating": "Creating...",
+                "deleteButton": "Delete Product"
+            }
+        },
+        "deleteProduct": {
+            "title": "Delete Product",
+            "deleteMessage": "Do you want to delete this product?",
+            "actions": {
+                "deleteButton": "Delete Product",
+                "cancelButton": "No Cancel"
+            }
+        },
+        "addModel": {
+            "title": "Add Model",
+            "forProduct": "For Product",
+            "model": "Model",
+            "modelPlaceholder": "Model Name",
+            "quantity": "Quantity",
+            "quantityPlaceholder": "Enter Quantity",
+            "actions": {
+                "createQRs": "Generate QR Codes",
+                "creating": "Generating...",
+                "createModel": "Create Model",
+                "deleteSuccess": "Model deleted successfully"
+            }
+        },
+        "qrCodes": {
+            "title": "Model QR Codes"
+        },
+        "actions": {
+          "creating": "Creating...",
+          "createCategory": "Create Category",
+          "deleteSuccess": "Category deleted successfully"
+        },
+        "saveButton": "Save Category",
+        "isSaving": "Saving...",
+        "addButton": "Add Category",
+        "listTitle": "Category List",
+        "deleteButton": "Delete Category",
+        "changeButton": "Change Category"
+    },
+    "validationForm": {
+        "name": "Name",
+        "phone": "Phone",
+        "shopName": "Shop Name",
+        "shopNumber": "Shop Number",
+        "purchaseDate": "Purchase Date",
+        "invoicePhoto": "Invoice Photo",
+        "userInfo": "User Info",
+        "invoiceInfo": "Invoice Info",
+        "browsePhoto": "Browse Photo"
+    },
+    "warrant": {
+        "oklandWarranty": "Okland company warranty",
+        "expiresOn": "Warranty expires on",
+        "activate": "Activate Warranty",
+        "success": "Warranty Activated Successfully!",
+        "failure": "Failed to activate warranty",
+        "validation": "Invoice photo with visible date must be uploaded to activate warranty"
+    },
+    "upload": {
+        "uploading": "Uploading...",
+        "complete": "Upload Complete"
+    },
+    "showWarranty": "Show Warranty",
+    "viewAllWarranties": "View All Warranties",
+    "warranty": {
+        "title": "warranty dashboard",
+        "invoicePhoto": "Invoice Photo",
+        "productName": "Product Name",
+        "modal": "Modal",
+        "deleteWarranty": {
+            "title": "Delete Warranty",
+            "deleteMessage": "Do you want to delete this warranty?",
+            "warrantyExpiries": "warranty expiries on",
+            "actions": {
+                "deleteButton": "Yes Delete",
+                "cancelButton": "No Cancel"
+            }   
+        }
+    },
+    "logout": {
+        "title": "Logout",
+        "logoutMessage": "Do you want to log out?",
+        "logoutButton": "Yes Logout",
+        "cancelButton": "No Cancel"
+    }
+}

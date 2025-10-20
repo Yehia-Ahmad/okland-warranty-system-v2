@@ -1,0 +1,197 @@
+<app-side-nav>
+    <div class="flex flex-col gap-8">
+        <div class="flex items-center justify-between p-8 rounded-lg" [ngClass]="{
+            'bg-gray_dark': isDarkMode$ | async,
+            'bg-light_card_bg': !(isDarkMode$ | async)
+        }">
+            @defer (when categoryDetails) {
+            <h2 class="text-2xl font-bold font-azonix text-orange">
+                okland {{ categoryDetails?.name }}
+            </h2>
+            } @placeholder {
+            <h2 class="text-2xl font-bold font-azonix text-orange">Loading...</h2>
+            }
+            <p-button label="{{ 'category.addProduct.title' | translate }}"
+                styleClass="!ml-auto !text-2xl !font-semibold !font-roboto !text-gray_dark !bg-light_orange !rounded-md !py-1 !px-8"
+                (click)="showDialog()" [disabled]="isAddingProduct || isCreatingModel || isCreatingQrCodes" />
+        </div>
+    </div>
+
+    <span class="w-min px-20 font-semibold text-lg tracking-wider mt-4 text-gray_light">
+        {{ 'category.pressAddModel' | translate }}
+        <span class="font-semibold text-lg tracking-wider capitalize text-light_orange">{{ 'category.printQr' | translate }}</span>
+        {{ 'category.info' | translate }}
+    </span>
+
+    <div class="w-full grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 my-6">
+        @for(product of products; track product?._id) {
+        <div
+            class="w-full flex flex-col items-center font-semibold text-xl gap-2 py-3 px-5 rounded-lg" [ngClass]="{
+                'bg-gray_dark text-light_orange': isDarkMode$ | async,
+                'bg-light_card_bg text-orange': !(isDarkMode$ | async)
+            }">
+            <img [src]="product.image" alt="product" class="w-full h-48 object-contain" />
+            <span>{{ product?.name }}</span>
+            <button class="w-full text-xl font-semibold font-roboto capitalize text-gray_dark bg-orange rounded-md py-1"
+                (click)="selectedProduct = product; showAddModelDialogHandler()"
+                [disabled]="isCreatingModel || isCreatingQrCodes">
+                {{ 'category.addModel.title' | translate }}
+            </button>
+            <button
+                class="!w-full text-xl !font-semibold !font-roboto !capitalize !text-gray_dark !bg-gray !rounded-md !py-1"
+                (click)="navigateToProductDetails(product)"
+                [disabled]="isAddingProduct || isCreatingModel || isCreatingQrCodes">
+                {{ 'category.editProduct.title' | translate }}
+            </button>
+        </div>
+        }
+    </div>
+
+    <!-- Add Model Dialog -->
+    <p-dialog [modal]="true" [(visible)]="showAddModelDialog" [style]="{ width: '35vw' }">
+        <div class="flex justify-center items-center">
+            <h1 class="text-4xl font-bold font-azonix text-orange">{{ 'category.addModel.title' | translate }}</h1>
+        </div>
+        <div class="flex flex-col items-center gap-4 px-10 my-6">
+            <span class="font-semibold text-lg tracking-wider text-light_orange">{{ 'category.addModel.forProduct' | translate }}</span>
+            <div class="w-full flex items-center justify-center py-4 rounded-lg bg-dark">
+                <span class="text-2xl font-semibold capitalize font-roboto text-orange">{{ selectedProduct?.name
+                    }}</span>
+            </div>
+            <div class="w-full flex items-start py-4 gap-4 rounded-lg">
+                <div class="flex flex-col items-end gap-8 mt-2">
+                    <label class="w-max text-lg capitalize font-semibold font-roboto text-light_orange">
+                        {{ 'category.addModel.model' | translate }}
+                    </label>
+                    <label class="w-max text-lg capitalize font-semibold font-roboto text-light_orange">
+                        {{ 'category.addModel.quantity' | translate }}
+                    </label>
+                </div>
+                <div class="w-full flex flex-col items-start gap-4">
+                    <div class="w-full px-4 py-1 rounded-md bg-dark">
+                        <input type="text"
+                            class="w-full rounded-md p-2 bg-transparent text-light_orange border border-none focus:outline-none"
+                            [(ngModel)]="name" [ngModelOptions]="{standalone: true}" placeholder="Type model name" />
+                    </div>
+                    <div class="w-full px-4 py-1 rounded-md bg-dark">
+                        <input type="text"
+                            class="w-full rounded-md p-2 bg-transparent text-light_orange border border-none focus:outline-none"
+                            [(ngModel)]="quantity" [ngModelOptions]="{standalone: true}"
+                            placeholder="Type number of QR Codes to print" />
+                    </div>
+                </div>
+            </div>
+            <div class="w-full flex justify-center items-center my-5">
+                <button
+                    class="w-max text-xl font-semibold font-roboto capitalize text-gray_dark bg-blue rounded-md px-5 py-1"
+                    (click)="createModel()" [disabled]="isCreatingModel">
+                    {{ isCreatingModel ? ('category.addModel.actions.creating' | translate) : ('category.addModel.actions.createQRs' | translate) }}
+                </button>
+            </div>
+        </div>
+    </p-dialog>
+
+    <!-- QR Codes Dialog -->
+    <p-dialog [modal]="true" [(visible)]="showModelQrCodesDialog" [style]="{ width: '35vw' }">
+        <div class="flex justify-center items-center">
+            <h5 class="text-4xl font-bold font-roboto text-gray_light">{{ "category.qrCodes.title" | translate }}</h5>
+        </div>
+        <div class="w-full flex flex-col items-center justify-center gap-4 my-8">
+            <h2 class="text-2xl text-center font-bold font-roboto text-orange">{{ selectedProduct?.name }}</h2>
+            <button
+                class="w-max mx-auto text-xl font-semibold font-roboto capitalize text-gray_dark bg-orange rounded-md px-5 py-1"
+                (click)="printQrCodes()" [disabled]="isPrinting">
+                {{ isPrinting ? 'Printing...' : 'Print' }}
+            </button>
+        </div>
+        <div class="w-full grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 my-6">
+            @for(qrCode of qrCodes; track qrCode?._id) {
+            <div class="w-full flex flex-col items-center gap-2 py-3 px-5 rounded-lg">
+                <qrcode [qrdata]="qrCode.fullUrl" [width]="150" [errorCorrectionLevel]="'M'"></qrcode>
+            </div>
+            }
+        </div>
+    </p-dialog>
+
+    <!-- Add Product Dialog -->
+    <p-dialog [modal]="true" [(visible)]="visible" [style]="{ width: '35vw' }">
+        <div class="flex justify-center items-center">
+            <h1 class="text-4xl font-bold font-azonix text-orange">{{ 'category.addProduct.title' | translate }}</h1>
+        </div>
+        <form class="flex flex-col gap-4 my-6 px-8" [formGroup]="addProductForm">
+            <div class="w-full flex flex-col gap-2 items-start">
+                <label class="text-lg font-medium font-roboto text-light_orange" for="name">{{ 'category.addProduct.productName' | translate }}</label>
+                <input type="text"
+                    class="w-full rounded-md p-2 bg-transparent text-light_orange border border-[#696969] focus:outline-none"
+                    formControlName="name" />
+            </div>
+
+            <div class="w-full flex flex-col gap-2 items-start">
+                <label class="text-lg font-medium font-roboto text-light_orange" for="watt">{{ 'category.addProduct.watt' | translate }}</label>
+                <input type="text"
+                    class="w-full rounded-md p-2 bg-transparent text-light_orange border border-[#696969] focus:outline-none"
+                    formControlName="watt" />
+            </div>
+
+            <div class="w-full flex flex-col gap-2 items-start">
+                <label class="text-lg font-medium font-roboto text-light_orange" for="lumen">{{ 'category.addProduct.lumen' | translate }}</label>
+                <input type="text"
+                    class="w-full rounded-md p-2 bg-transparent text-light_orange border border-[#696969] focus:outline-none"
+                    formControlName="lumen" />
+            </div>
+
+            <div class="w-full flex flex-col gap-2 items-start">
+                <label class="text-lg font-medium font-roboto text-light_orange" for="description">{{ 'category.addProduct.description' | translate }}</label>
+                <textarea
+                    class="w-full rounded-md p-2 bg-transparent text-light_orange border border-[#696969] focus:outline-none"
+                    rows="3" cols="30" formControlName="description"></textarea>
+            </div>
+
+            <div class="w-full flex flex-col gap-2 items-start">
+                <label class="text-lg font-medium font-roboto text-light_orange" for="category">{{ 'category.addProduct.category' | translate }}</label>
+                <p-select [options]="categories" optionLabel="name" optionValue="_id" placeholder="Select Category"
+                    class="w-full" formControlName="category"></p-select>
+            </div>
+
+            <div class="w-full flex flex-col gap-2 items-center rounded-md bg-gray_light" (click)="fileInput.click()">
+                <input #fileInput accept="image/*" type="file" class="hidden" (change)="onBasicUploadAuto($event)" />
+                <p-button label="{{ imagePreview ? ('category.addProduct.changeImage' | translate) : ('category.addProduct.uploadImage' | translate) }}"
+                    styleClass="!mx-auto !text-xl !font-semibold !font-roboto !text-dark !bg-gray_light !rounded-md !p-2 !border-none" />
+            </div>
+
+            @if(imagePreview){
+            <img [src]="imagePreview" class="w-40 h-40 object-cover rounded-md mx-auto mt-4" />
+            }
+        </form>
+
+        <div class="flex justify-center items-center">
+            <p-button label="{{ isAddingProduct ? ('category.addProduct.actions.creating' | translate ): ( 'category.addProduct.actions.save' | translate) }}"
+                styleClass="!px-5 !py-1 !text-2xl !font-bold !font-roboto !text-gray_dark !border-none !bg-orange !rounded-md"
+                (click)="addNewProduct()" [disabled]="isAddingProduct" />
+        </div>
+    </p-dialog>
+
+    <!-- <app-error-dialog [visible]="errorVisible" [message]="errorMessage"></app-error-dialog> -->
+    <p-dialog [(visible)]="errorVisible" [modal]="true" [closable]="true" [dismissableMask]="true" [style]="{ width: '400px' }"
+        styleClass="!border-0">
+        <ng-template #headless>
+            <div class="flex flex-col gap-4 p-6 rounded-2xl" [ngClass]="{
+                'bg-gray': isDarkMode$ | async,
+                'bg-light_card_bg': !(isDarkMode$ | async)
+            }">
+                <app-error-icon class="mx-auto"></app-error-icon>
+                <p class="text-center" [ngClass]="{ 
+                    'text-light_orange': isDarkMode$ | async,
+                    'text-gray_dark': !(isDarkMode$ | async)
+                 }">{{ errorMessage }}</p>
+                <div class="flex justify-center mt-4">
+                    <button type="button"
+                        class="px-6 py-2 rounded-lg text-white bg-[#FF9933] hover:opacity-90"
+                        (click)="errorVisible = false">
+                        OK
+                    </button>
+                </div>
+            </div>
+        </ng-template>
+    </p-dialog>
+</app-side-nav>

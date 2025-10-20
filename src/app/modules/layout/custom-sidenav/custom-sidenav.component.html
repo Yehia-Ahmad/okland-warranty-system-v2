@@ -1,0 +1,204 @@
+<mat-nav-list class="flex flex-col h-full justify-between">
+  <div class="relative">
+    @if(isSidenavCollapsed) {
+      @for(item of menuItems(); track $index) {
+        <a
+          mat-list-item
+          (click)="openSidenav()"
+          [style.width]="'75%'"
+          [style.border-radius]="'8px'"
+          [style.margin]="'0 auto'"
+          [style.margin-bottom]="'1rem'"
+          [style.padding]="'0.5rem'"
+          [style.background-color]="rla.isActive ? '#FF9933' : '#FFDFC2'"
+          (click)="item.children ? toggleCategory(item.label) : null"
+          [style.color]="'#2F2F2F'"
+          [routerLink]="item.route"
+          routerLinkActive
+          #rla="routerLinkActive"
+          [activated]="rla.isActive"
+        >
+          <span matListItemIcon [innerHTML]="item.icon"></span>
+        </a>
+      }
+    } @else {
+      @for (item of menuItems(); track $index) {
+        <div>
+          <!-- Main Menu Item -->
+          <a
+            mat-list-item
+            [routerLink]="item.route"
+            routerLinkActive
+            #rla="routerLinkActive"
+            [activated]="rla.isActive"
+            (click)="item.children ? toggleCategory(item.label) : null"
+            [style.width]="'90%'"
+            [style.background-color]="rla.isActive ? '#FF9933' : '#FFDFC2'"
+            [style.color]="'#2F2F2F'"
+            [style.margin]="'1rem'"
+            [style.border-radius]="'8px'"
+            [style.display]="'flex'"
+            [style.align-items]="'center'"
+          >
+            <span matListItemIcon [innerHTML]="item.icon"></span>
+            <span
+              matListItemTitle
+              [style.margin-left]="'0.5rem'"
+              [style.font-weight]="'600'"
+              [style.font-size]="'longer'"
+            >
+              {{ item.label | translate }}
+            </span>
+            @if (item.children) {
+              <span class="ml-auto">
+                <svg
+                  [style.transform]="expandedCategory === item.label ? 'rotate(180deg)' : 'rotate(0deg)'"
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#FF9933"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="feather feather-chevron-down transition-transform duration-200"
+                >
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            }
+          </a>
+
+          <!-- Sub-items -->
+          @if (item.children && expandedCategory === item.label) {
+            <div class="ml-10 mt-2 space-y-2">
+              @for (child of item.children; track $index) {
+                <a
+                  mat-list-item
+                  [routerLink]="child.route"
+                  routerLinkActive
+                  #rla="routerLinkActive"
+                  [activated]="rla.isActive"
+                  [style.width]="'90%'"
+                  [style.display]="'block'"
+                  [style.padding]="'0.5rem 0.8rem'"
+                  [style.border-radius]="'6px'"
+                  [style.background-color]="rla.isActive ? '#FF9933' : (isDarkMode$ | async) ? '#2F2F2F' : '#e1e0e0'"
+                  [style.color]="rla.isActive ? '#2F2F2F' : (isDarkMode$ | async) ? '#FFDFC2' : '#FF9933'"
+                >
+                  {{ child.label }}
+                </a>
+              }
+
+              <!-- Add New Category Button -->
+              <button
+                mat-button
+                (click)="openDialog()"
+                [style.width]="'100%'"
+                [style.margin-inline-start]="'-35px'"
+                [style.background]="'transparent'"
+                [style.color]="'#BDBDBD'"
+                [style.border]="'none'"
+                [style.font-weight]="'600'"
+                [style.text-transform]="'uppercase'"
+                [style.padding]="'0.5rem 0.8rem'"
+                [style.margin-top]="'0.5rem'"
+                [style.text-align]="'left'"
+                [style.cursor]="'pointer'"
+                [style.font-size]="'0.9rem'"
+                [style.letter-spacing]="'0.5px'"
+                [style.transition]="'color 0.2s ease'"
+              >
+                + {{ 'sidebarTitles.add_new_category' | translate }}
+              </button>
+            </div>
+          }
+        </div>
+      }
+    }
+  </div>
+
+  <!-- Logout Button -->
+  <div class="mt-auto w-full flex justify-center mb-4 absolute bottom-4">
+    <button
+      mat-button
+      (click)="openLogoutDialog()"
+      [style.width]="isSidenavCollapsed ? '60%' : '85%'"
+      [style.border-radius]="'8px'"
+      [style.color]="'#FF9933'"
+      [style.background-color]="(isDarkMode$ | async) ? '#2F2F2F' : '#e1e0e0'"
+      [style.font-weight]="'600'"
+      [style.text-transform]="'uppercase'"
+      [style.padding]="'1rem'"
+      [style.text-align]="'center'"
+      [style.cursor]="'pointer'"
+      [style.font-size]="'0.9rem'"
+      [style.letter-spacing]="'0.5px'"
+      [style.transition]="'color 0.2s ease'"
+    >
+      @if(!isSidenavCollapsed){
+        <span class="flex items-center text-xl gap-2" >
+          <app-logout></app-logout>
+          {{ 'logout.title' | translate }}
+        </span>
+      }@else {
+        <app-logout></app-logout>
+      }
+    </button>
+  </div>
+
+  <!-- Dialog for adding new category -->
+  <p-dialog [modal]="true" [(visible)]="visible" [style]="{ width: '35vw' }">
+    <div class="flex justify-center items-center">
+      <h1 class="text-2xl font-bold font-azonix text-orange">{{ 'category.add_new_category' | translate }}</h1>
+    </div>
+    <form class="flex flex-col gap-4 my-6" [formGroup]="addCategory">
+      <div class="w-full flex flex-col gap-2 items-start">
+        <label class="text-lg font-medium font-roboto text-light_orange" for="name">{{ 'category.name' | translate }}</label>
+        <input
+          type="text"
+          class="w-full rounded-md p-2 bg-transparent text-light_orange border border-[#696969] focus:outline-none"
+          formControlName="name" placeholder="{{ 'category.namePlaceholder' | translate }}"
+        />
+      </div>
+      <div class="w-full flex flex-col gap-2 items-start">
+        <label class="text-lg font-medium font-roboto text-light_orange" for="description">{{ 'category.description' | translate }}</label>
+        <textarea
+          class="w-full rounded-md p-2 bg-transparent text-light_orange border border-[#696969] focus:outline-none"
+          rows="5" cols="30" formControlName="description" placeholder="{{ 'category.descriptionPlaceholder' | translate }}"
+        ></textarea>
+      </div>
+    </form>
+    <div class="flex justify-center items-center">
+      <p-button label="{{ 'category.saveButton' | translate}}" severity="warn" styleClass="!px-4 !py-1 !bg-orange !text-dark" (click)="addNewCategory()" [disabled]="addCategory.invalid || isSaving"
+        [loading]="isSaving"></p-button>
+    </div>
+  </p-dialog>
+
+  <!-- Logout Confirmation Dialog -->
+  <p-dialog [(visible)]="logoutVisible" styleClass="!border-0" [style]="{ width: '35vw' }">
+    <ng-template #headless>
+      <div class="flex flex-col px-8 py-8 gap-6 rounded-2xl bg-[#393939]">
+        <div class="w-full flex items-center justify-center">
+          <app-warn></app-warn>
+        </div>
+        <div class="flex items-center justify-center">
+          <h1 class="text-4xl font-bold font-azonix text-orange">{{ 'logout.title' | translate }}</h1>
+        </div>
+        <h6 class="text-lg text-center font-semibold font-roboto text-light_orange">
+          {{ 'logout.logoutMessage' | translate }}
+        </h6>
+        <div class="mx-auto flex items-center justify-between gap-8">
+          <button (click)="closeLogoutDialog()"
+            class="w-max px-4 py-2 uppercase text-2xl font-semibold rounded-md text-gray_dark bg-orange font-roboto border border-white/30">
+            {{ 'logout.cancelButton' | translate }}
+          </button>
+          <button (click)="confirmLogout()"
+            class="px-4 py-2 w-max uppercase text-xl font-semibold rounded-md text-light_orange bg-red font-roboto border border-white/30">
+            {{ 'logout.logoutButton' | translate }}
+          </button>
+        </div>
+      </div>
+    </ng-template>
+  </p-dialog>
+</mat-nav-list>

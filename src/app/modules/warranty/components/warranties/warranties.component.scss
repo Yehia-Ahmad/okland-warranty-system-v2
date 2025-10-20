@@ -1,0 +1,113 @@
+::ng-deep .p-dialog {
+    background-color: #393939 !important;
+    border: 1px solid #393939 !important;
+}
+
+::ng-deep .p-dialog-title {
+    margin: 0 auto !important;
+    color: #FF9933 !important;
+    font-family: 'Azonix' !important;
+    font-size: 1.5rem !important;
+}
+
+::ng-deep .p-select {
+    border: 1px solid #BDBDBD !important;
+}
+
+:host p-select ::ng-deep .p-select-label {
+    color: #BDBDBD !important;
+    background: #393939 !important;
+}
+
+:host p-select ::ng-deep .p-select-dropdown {
+    color: #BDBDBD !important;
+    background: #393939 !important;
+}
+
+::ng-deep .p-select {
+    border: 1px solid #696969 !important;
+}
+
+::ng-deep .p-select:not(.p-disabled).p-focus {
+    border-color: #696969 !important;
+}
+
+::ng-deep .p-select-option.p-select-option-selected {
+    color: #FF9933 !important;
+    background: #4D4D4D !important;
+}
+
+::ng-deep .p-select-option:not(.p-select-option-selected):not(.p-disabled).p-focus {
+    color: #FF9933 !important;
+    background: #4D4D4D !important;
+}
+
+::ng-deep .p-select-list {
+    padding: unset !important;
+}
+
+::ng-deep .p-datatable-tbody>tr>td {
+    border-color: #FFDFC2 !important;
+}
+
+::ng-deep .p-paginator-page.p-paginator-page-selected {
+    background: #FF9933 !important;
+    color: #212121;
+    border-radius: 8px !important;
+}
+
+::ng-deep .p-paginator {
+    color: #FFDFC2 !important;
+    background-color: transparent !important;
+}
+
+::ng-deep .p-paginator-page,
+.p-paginator-next,
+.p-paginator-last,
+.p-paginator-first,
+.p-paginator-prev {
+    color: #FFDFC2 !important;
+}
+
+::ng-deep .p-paginator-page:not(.p-disabled):not(.p-paginator-page-selected):hover,
+.p-paginator-first:not(.p-disabled):hover,
+.p-paginator-prev:not(.p-disabled):hover,
+.p-paginator-next:not(.p-disabled):hover,
+.p-paginator-last:not(.p-disabled):hover {
+    color: #212121 !important;
+    background-color: #FF9933 !important;
+    border-radius: 8px !important;
+}
+
+::ng-deep .p-paginator-prev {
+    color: #FFDFC2 !important;
+    background-color: transparent !important;
+}
+
+::ng-deep .p-paginator-next {
+    color: #FFDFC2 !important;
+    background-color: transparent !important;
+}
+
+::ng-deep .p-paginator-prev:not(.p-disabled):hover{
+    color: #212121 !important;
+    background-color: #FF9933 !important;
+    border-radius: 8px !important;
+}
+
+::ng-deep .p-paginator-next:not(.p-disabled):hover{
+    color: #212121 !important;
+    background-color: #FF9933 !important;
+    border-radius: 8px !important;
+}
+
+::ng-deep .p-datepicker:has(.p-datepicker-input-icon-container) .p-datepicker-input {
+    width: 100% !important;
+    border: none !important;
+    background: transparent !important;
+    color: #FF9933 !important;
+}
+
+::ng-deep .p-datepicker-input-icon-container {
+    color: #FF9933 !important;
+}
