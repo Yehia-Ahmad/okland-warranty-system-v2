@@ -7,11 +7,14 @@ import { UploadComponent } from "../../../assets/upload/upload.component";
 import { WarrantyService } from '../../services/warranty.service';
 import { ActivatedRoute } from '@angular/router';
 import { format } from "date-fns";
+import { DialogModule } from 'primeng/dialog';
+import { ThemeService } from '../../../shared/services/theme.service';
+import { ErrorIconComponent } from "../../../assets/error/error-icon.component";
 
 @Component({
   selector: 'app-activate-warranty',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, SelectModule, Mode, UploadComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, SelectModule, Mode, UploadComponent, DialogModule, ErrorIconComponent],
   templateUrl: './activate-warranty.component.html',
   styleUrl: './activate-warranty.component.scss'
 })
@@ -21,6 +24,7 @@ export class ActivateWarrantyComponent {
     { name: 'Arabic' },
     { name: 'Chinese' }
   ];
+  isDarkMode$;
   selectedLanguage: string = this.i18n[0];
   imagePreview: string | ArrayBuffer | null = null;
   activateForm: any = {
@@ -32,9 +36,12 @@ export class ActivateWarrantyComponent {
     startDate: format(new Date(), 'yyyy-MM-dd'),
     duration: 365,
     invoiceImage: null
-  }
+  };
+  errorVisible = false;
+  errorMessage = '';
   
-  constructor(private _warrantyService: WarrantyService, private _activatedRoute: ActivatedRoute) {
+  constructor(private _warrantyService: WarrantyService, private _activatedRoute: ActivatedRoute, private _themeService: ThemeService) {
+    this.isDarkMode$ = this._themeService.isDarkMode$;
     this.activateForm.qrCode = this._activatedRoute.snapshot.params['id'];
   }
 
@@ -53,6 +60,10 @@ export class ActivateWarrantyComponent {
     this._warrantyService.activateWarranty(formData).subscribe({
       next: (res: any) => {
         window.close();
+      },
+      error: (err: any) => {
+        this.errorVisible = true;
+        this.errorMessage = err.error.message;
       }
     });
   }
