@@ -60,6 +60,31 @@
                     {{ selectedProduct?.number }}
                 </div>
             </div>
+            
+            <div class="w-full flex flex-col justify-center items-center">
+                <label for="productName" class="font-semibold text-lg leading-7 tracking-wider text-light_orange">
+                    {{ 'warranty.activateWarranty.branchName' | translate }}
+                </label>
+                <div class="w-full flex items-center justify-center rounded-md py-4 font-bold text-2xl leading-7 tracking-wide font-roboto text-gray_light" [ngClass]="{
+                    ' bg-gray py-2': (isDarkMode$ | async),
+                    ' border border-orange': !(isDarkMode$ | async)
+                }">
+                    {{ selectedProduct?.branchName }}
+                </div>
+            </div>
+            
+            <div class="w-full flex flex-col justify-center items-center">
+                <label for="productName" class="font-semibold text-lg leading-7 tracking-wider text-light_orange">
+                    {{ 'warranty.activateWarranty.branchNumber' | translate }}
+                </label>
+                <div class="w-full flex items-center justify-center rounded-md py-4 font-bold text-2xl leading-7 tracking-wide font-roboto text-gray_light" [ngClass]="{
+                    ' bg-gray py-2': (isDarkMode$ | async),
+                    ' border border-orange': !(isDarkMode$ | async)
+                }">
+                    {{ selectedProduct?.branchNumber }}
+                </div>
+            </div>
+            
             <div class="w-full flex flex-col justify-center items-center">
                 <p class="font-semibold text-lg leading-7 tracking-wider text-orange">
                     {{ 'warranty.expiresOn' | translate }}

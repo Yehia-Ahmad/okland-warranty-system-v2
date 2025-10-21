@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -37,7 +37,7 @@ export class WarrantyDetailsComponent {
   selectedLanguage: string = this.i18n[0];
   selectedProduct: any = {};
 
-  constructor(private _warrantyService: WarrantyService, private _activatedRoute: ActivatedRoute, private _languageService: LanguageService, private _themeService: ThemeService) {
+  constructor(private _warrantyService: WarrantyService, private _activatedRoute: ActivatedRoute, private _languageService: LanguageService, private _themeService: ThemeService, private cdr: ChangeDetectorRef) {
     this.isDarkMode$ = this._themeService.isDarkMode$;
     // this.activateForm.qrCode = this._activatedRoute.snapshot.params['id'];
   }
@@ -57,6 +57,7 @@ export class WarrantyDetailsComponent {
     this._warrantyService.getWarrantyById(this._activatedRoute.snapshot.params['id']).subscribe({
       next: (res: any) => {
         this.selectedProduct = res.data;
+        this.cdr.detectChanges();
       },
       error: (err: any) => { }
     })

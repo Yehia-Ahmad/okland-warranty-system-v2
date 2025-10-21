@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { Mode } from "../../../assets/mode/mode";
 import { UploadComponent } from "../../../assets/upload/upload.component";
 import { WarrantyService } from '../../services/warranty.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { format } from "date-fns";
 import { DialogModule } from 'primeng/dialog';
 import { ThemeService } from '../../../shared/services/theme.service';
@@ -52,7 +52,7 @@ export class ActivateWarrantyComponent {
   errorVisible = false;
   errorMessage = '';
   
-  constructor(private _warrantyService: WarrantyService, private _activatedRoute: ActivatedRoute, private _languageService: LanguageService, private _themeService: ThemeService) {
+  constructor(private _warrantyService: WarrantyService, private _activatedRoute: ActivatedRoute, private _languageService: LanguageService, private _themeService: ThemeService, private cdr: ChangeDetectorRef, private _router: Router) {
     this.isDarkMode$ = this._themeService.isDarkMode$;
     this.activateForm.qrCode = this._activatedRoute.snapshot.params['id'];
   }
@@ -78,7 +78,7 @@ export class ActivateWarrantyComponent {
     formData.append('invoiceImage', this.activateForm.invoiceImage);
     this._warrantyService.activateWarranty(formData).subscribe({
       next: (res: any) => {
-        window.close();
+        this._router.navigate(['/warranty-details', res.data.warrantyId]);
       },
       error: (err: any) => {
         this.errorVisible = true;
@@ -94,6 +94,7 @@ export class ActivateWarrantyComponent {
       const reader = new FileReader();
       reader.onload = () => {
         this.imagePreview = reader.result as string;
+        this.cdr.detectChanges();
       };
       reader.readAsDataURL(file);
 
