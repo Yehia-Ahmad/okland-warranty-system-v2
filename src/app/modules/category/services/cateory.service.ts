@@ -22,6 +22,10 @@ export class CateoryService {
     return this._http.post(`${this._baseUrl}categories`, category);
   }
 
+  deleteCategory(id: string) {
+    return this._http.delete(`${this._baseUrl}categories/${id}`);
+  }
+
   getProducts(category_id: number, params?: any) {
     return this._http.get(`${this._baseUrl}products`, { params });
   }

@@ -1,12 +1,24 @@
-<div class="w-screen min-h-screen p-4 flex justify-center items-center bg-gray_dark overflow-auto">
-    <div class="w-full p-8 rounded-3xl flex flex-col justify-start items-start gap-8 bg-dark">
+<div class="w-screen min-h-screen p-4 flex justify-center items-center overflow-auto" [ngClass]="{
+    'bg-gray_dark': isDarkMode$ | async,
+    'bg-light_bg': !(isDarkMode$ | async)
+}">
+    <div class="w-full p-8 rounded-3xl flex flex-col justify-start items-start gap-8" [ngClass]="{
+        'bg-dark': isDarkMode$ | async,
+        'bg-light_card_bg': !(isDarkMode$ | async)
+    }">
         <div class="w-full flex justify-between items-center">
             <p-select [options]="i18n" [(ngModel)]="currentLang" (ngModelChange)="onLanguageChange($event)"
                 optionLabel="name" optionValue="id" placeholder="Select Language" class="custom-select w-32" [ngClass]="{
                           'light-mode-select': !(isDarkMode$ | async),
                           'dark-mode-select': (isDarkMode$ | async)
                         }"></p-select>
-            <app-mode></app-mode>
+            <button class="flex items-center justify-center border-none outline-none bg-transparent" (click)="toggleDarkMode()">
+                @if (isDarkMode$ | async) {
+                    <app-mode></app-mode>
+                } @else {
+                    <app-moon></app-moon>
+                }
+            </button>
         </div>
         <div class="w-full flex flex-col justify-start items-center mt-4">
             <img src="assets/img/lion.png" alt="Logo" class="h-28">
@@ -17,7 +29,10 @@
         </div>
         <div class="flex flex-col justify-center items-center w-full gap-6">
             <div class="w-full flex flex-col justify-center items-center">
-                <label for="productName" class="font-semibold text-lg leading-7 tracking-wider text-light_orange">
+                <label for="productName" class="font-semibold text-lg leading-7 tracking-wider" [ngClass]="{
+                    'text-light_orange': (isDarkMode$ | async),
+                    'text-orange': !(isDarkMode$ | async)
+                }">
                     {{ 'product.form.name' | translate }}
                 </label>
                 <div class="w-full flex items-center justify-center rounded-md py-4 font-bold text-4xl leading-7 tracking-wide font-roboto text-orange" [ngClass]="{
@@ -28,7 +43,10 @@
                 </div>
             </div>
             <div class="w-full flex flex-col justify-center items-center">
-                <label for="productName" class="font-semibold text-lg leading-7 tracking-wider text-light_orange">
+                <label for="productName" class="font-semibold text-lg leading-7 tracking-wider " [ngClass]="{
+                    'text-light_orange': (isDarkMode$ | async),
+                    'text-orange': !(isDarkMode$ | async)
+                }">
                     {{ 'tableHeaders.model' | translate }}
                 </label>
                 <div class="w-full flex items-center justify-center rounded-md py-4 font-bold text-2xl leading-7 tracking-wide font-roboto text-gray_light" [ngClass]="{
@@ -39,7 +57,10 @@
                 </div>
             </div>
             <div class="w-full flex flex-col justify-center items-center">
-                <label for="productName" class="font-semibold text-lg leading-7 tracking-wider text-light_orange">
+                <label for="productName" class="font-semibold text-lg leading-7 tracking-wider " [ngClass]="{
+                    'text-light_orange': (isDarkMode$ | async),
+                    'text-orange': !(isDarkMode$ | async)
+                }">
                     {{ 'tableHeaders.username' | translate }}
                 </label>
                 <div class="w-full flex items-center justify-center rounded-md py-4 font-bold text-2xl leading-7 tracking-wide font-roboto text-gray_light" [ngClass]="{
@@ -50,7 +71,10 @@
                 </div>
             </div>
             <div class="w-full flex flex-col justify-center items-center">
-                <label for="productName" class="font-semibold text-lg leading-7 tracking-wider text-light_orange">
+                <label for="productName" class="font-semibold text-lg leading-7 tracking-wider " [ngClass]="{
+                    'text-light_orange': (isDarkMode$ | async),
+                    'text-orange': !(isDarkMode$ | async)
+                }">
                     {{ 'admin.form.phone' | translate }}
                 </label>
                 <div class="w-full flex items-center justify-center rounded-md py-4 font-bold text-2xl leading-7 tracking-wide font-roboto text-gray_light" [ngClass]="{
@@ -62,7 +86,10 @@
             </div>
             
             <div class="w-full flex flex-col justify-center items-center">
-                <label for="productName" class="font-semibold text-lg leading-7 tracking-wider text-light_orange">
+                <label for="productName" class="font-semibold text-lg leading-7 tracking-wider " [ngClass]="{
+                    'text-light_orange': (isDarkMode$ | async),
+                    'text-orange': !(isDarkMode$ | async)
+                }">
                     {{ 'warranty.activateWarranty.branchName' | translate }}
                 </label>
                 <div class="w-full flex items-center justify-center rounded-md py-4 font-bold text-2xl leading-7 tracking-wide font-roboto text-gray_light" [ngClass]="{
@@ -74,7 +101,10 @@
             </div>
             
             <div class="w-full flex flex-col justify-center items-center">
-                <label for="productName" class="font-semibold text-lg leading-7 tracking-wider text-light_orange">
+                <label for="productName" class="font-semibold text-lg leading-7 tracking-wider" [ngClass]="{
+                    'text-light_orange': (isDarkMode$ | async),
+                    'text-orange': !(isDarkMode$ | async)
+                }">
                     {{ 'warranty.activateWarranty.branchNumber' | translate }}
                 </label>
                 <div class="w-full flex items-center justify-center rounded-md py-4 font-bold text-2xl leading-7 tracking-wide font-roboto text-gray_light" [ngClass]="{

@@ -73,21 +73,28 @@
           @if (item.children && expandedCategory === item.label) {
             <div class="ml-10 mt-2 space-y-2">
               @for (child of item.children; track $index) {
-                <a
-                  mat-list-item
-                  [routerLink]="child.route"
-                  routerLinkActive
-                  #rla="routerLinkActive"
-                  [activated]="rla.isActive"
-                  [style.width]="'90%'"
-                  [style.display]="'block'"
-                  [style.padding]="'0.5rem 0.8rem'"
-                  [style.border-radius]="'6px'"
-                  [style.background-color]="rla.isActive ? '#FF9933' : (isDarkMode$ | async) ? '#2F2F2F' : '#e1e0e0'"
-                  [style.color]="rla.isActive ? '#2F2F2F' : (isDarkMode$ | async) ? '#FFDFC2' : '#FF9933'"
-                >
-                  {{ child.label }}
-                </a>
+                <div class="relative">
+                  <a
+                    mat-list-item
+                    [routerLink]="child.route"
+                    routerLinkActive
+                    #rla="routerLinkActive"
+                    [activated]="rla.isActive"
+                    [style.width]="'90%'"
+                    [style.display]="'block'"
+                    [style.padding]="'0.5rem 0.8rem'"
+                    [style.border-radius]="'6px'"
+                    [style.background-color]="rla.isActive ? '#FF9933' : (isDarkMode$ | async) ? '#2F2F2F' : '#e1e0e0'"
+                    [style.color]="rla.isActive ? '#2F2F2F' : (isDarkMode$ | async) ? '#FFDFC2' : '#FF9933'"
+                  >
+                    {{ child.label }}
+                  </a>
+                  @if(!rla.isActive) {
+                    <button (click)="promptForCategoryDeletion(child)" class="absolute top-2 right-6 z-50 text-light_orange">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                    </button>
+                  }
+                </div>
               }
 
               <!-- Add New Category Button -->
@@ -201,4 +208,31 @@
       </div>
     </ng-template>
   </p-dialog>
+
+  <!-- Delete Category Confirmation Dialog -->
+<p-dialog [(visible)]="deleteCategoryVisible" styleClass="!border-0" [style]="{ width: '35vw' }">
+  <ng-template #headless>
+    <div class="flex flex-col px-8 py-8 gap-6 rounded-2xl bg-[#393939]">
+      <div class="w-full flex items-center justify-center">
+        <app-warn></app-warn>
+      </div>
+      <div class="flex items-center justify-center">
+        <h1 class="text-4xl font-bold font-azonix text-orange">{{ 'category.delete_category_title' | translate }}</h1>
+      </div>
+      <h6 class="text-lg text-center font-semibold font-roboto text-light_orange">
+        {{ 'category.delete_category_message' | translate }}
+      </h6>
+      <div class="mx-auto flex items-center justify-between gap-8">
+        <button (click)="closeDeleteCategoryDialog()"
+          class="w-max px-4 py-2 uppercase text-2xl font-semibold rounded-md text-gray_dark bg-orange font-roboto border border-white/30">
+          {{ 'category.cancel_button' | translate }}
+        </button>
+        <button (click)="confirmDeleteCategory()"
+          class="px-4 py-2 w-max uppercase text-xl font-semibold rounded-md text-light_orange bg-red font-roboto border border-white/30">
+          {{ 'category.delete_button' | translate }}
+        </button>
+      </div>
+    </div>
+  </ng-template>
+</p-dialog>
 </mat-nav-list>

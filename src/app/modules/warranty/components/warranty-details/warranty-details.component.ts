@@ -9,11 +9,12 @@ import { Mode } from '../../../assets/mode/mode';
 import { ThemeService } from '../../../shared/services/theme.service';
 import { LanguageService } from '../../../shared/services/translation.service';
 import { WarrantyService } from '../../services/warranty.service';
+import { MoonComponent } from "../../../assets/moon/moon.component";
 
 @Component({
   selector: 'app-warranty-details',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, SelectModule, Mode, DialogModule, TranslatePipe],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, SelectModule, Mode, DialogModule, TranslatePipe, MoonComponent],
   templateUrl: './warranty-details.component.html',
   styleUrl: './warranty-details.component.scss'
 })
@@ -63,4 +64,7 @@ export class WarrantyDetailsComponent {
     })
   }
 
+  toggleDarkMode() {
+    this._themeService.toggleTheme();
+  }
 }

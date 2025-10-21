@@ -12,11 +12,12 @@ import { ThemeService } from '../../../shared/services/theme.service';
 import { ErrorIconComponent } from "../../../assets/error/error-icon.component";
 import { TranslatePipe } from '@ngx-translate/core';
 import { LanguageService } from '../../../shared/services/translation.service';
+import { MoonComponent } from "../../../assets/moon/moon.component";
 
 @Component({
   selector: 'app-activate-warranty',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, SelectModule, Mode, UploadComponent, DialogModule, ErrorIconComponent, TranslatePipe],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, SelectModule, Mode, UploadComponent, DialogModule, ErrorIconComponent, TranslatePipe, MoonComponent],
   templateUrl: './activate-warranty.component.html',
   styleUrl: './activate-warranty.component.scss'
 })
@@ -105,4 +106,8 @@ export class ActivateWarrantyComponent {
     }
   }
 
+
+  toggleDarkMode() {
+    this._themeService.toggleTheme();
+  }
 }

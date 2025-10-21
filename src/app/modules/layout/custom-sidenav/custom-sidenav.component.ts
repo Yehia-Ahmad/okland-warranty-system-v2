@@ -40,6 +40,8 @@ export class CustomSidenavComponent implements OnInit {
   visible: boolean = false;
   isSaving: boolean = false;
   logoutVisible: boolean = false;
+  deleteCategoryVisible: boolean = false;
+  categoryToDelete: any = null;
   addCategory: FormGroup;
   isDarkMode$;
   constructor(private _themeService: ThemeService, private sanitizer: DomSanitizer, private _cateoryService: CateoryService, private fb: FormBuilder, private cdr: ChangeDetectorRef, private _router: Router) {
@@ -73,7 +75,7 @@ export class CustomSidenavComponent implements OnInit {
     this.categories = [];
     this._cateoryService.getCategories().subscribe((res: any) => {
       res.data.map((category: any) => {
-        this.categories.push({ label: category.name, route: `/categories/${category._id}` })     
+        this.categories.push({ label: category.name, route: `/categories/${category._id}`, id: category._id })     
       });
       this.buildMenuItems();
     })
@@ -188,5 +190,30 @@ export class CustomSidenavComponent implements OnInit {
     this.logoutVisible = false;
     localStorage.removeItem('access_token');
     this._router.navigate(['/login']);
+  }
+
+  promptForCategoryDeletion(category: any) {
+    this.categoryToDelete = category;
+    this.deleteCategoryVisible = true;
+  }
+
+  closeDeleteCategoryDialog() {
+    this.deleteCategoryVisible = false;
+    this.categoryToDelete = null;
+  }
+
+  confirmDeleteCategory() {
+    if (!this.categoryToDelete) return;
+
+    this._cateoryService.deleteCategory(this.categoryToDelete.id).subscribe({
+      next: () => {
+        this.getAllCategories();
+        this.closeDeleteCategoryDialog();
+      },
+      error: (err) => {
+        console.error(err);
+        this.closeDeleteCategoryDialog();
+      }
+    });
   }
 }
