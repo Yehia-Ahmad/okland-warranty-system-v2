@@ -10,20 +10,32 @@ import { format } from "date-fns";
 import { DialogModule } from 'primeng/dialog';
 import { ThemeService } from '../../../shared/services/theme.service';
 import { ErrorIconComponent } from "../../../assets/error/error-icon.component";
+import { TranslatePipe } from '@ngx-translate/core';
+import { LanguageService } from '../../../shared/services/translation.service';
 
 @Component({
   selector: 'app-activate-warranty',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, SelectModule, Mode, UploadComponent, DialogModule, ErrorIconComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, SelectModule, Mode, UploadComponent, DialogModule, ErrorIconComponent, TranslatePipe],
   templateUrl: './activate-warranty.component.html',
   styleUrl: './activate-warranty.component.scss'
 })
 export class ActivateWarrantyComponent {
   i18n: any[] = [
-    { name: 'English' },
-    { name: 'Arabic' },
-    { name: 'Chinese' }
+    {
+      name: 'English',
+      id: 'en'
+    },
+    {
+      name: 'Arabic',
+      id: 'ar'
+    },
+    {
+      name: 'Chinese',
+      id: 'zh'
+    }
   ];
+  currentLang: string;
   isDarkMode$;
   selectedLanguage: string = this.i18n[0];
   imagePreview: string | ArrayBuffer | null = null;
@@ -40,12 +52,19 @@ export class ActivateWarrantyComponent {
   errorVisible = false;
   errorMessage = '';
   
-  constructor(private _warrantyService: WarrantyService, private _activatedRoute: ActivatedRoute, private _themeService: ThemeService) {
+  constructor(private _warrantyService: WarrantyService, private _activatedRoute: ActivatedRoute, private _languageService: LanguageService, private _themeService: ThemeService) {
     this.isDarkMode$ = this._themeService.isDarkMode$;
     this.activateForm.qrCode = this._activatedRoute.snapshot.params['id'];
   }
 
   ngOnInit() { }
+
+
+  onLanguageChange(lang: string) {
+    console.log(lang);
+    this._languageService.changeLanguage(lang);
+    this.currentLang = lang;
+  }
 
   activateWarranty() {
     let formData = new FormData();

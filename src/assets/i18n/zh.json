@@ -192,6 +192,7 @@
     "invoicePhoto": "发票照片",
     "productName": "产品名称",
     "modal": "型号",
+    "expiresOn": "保修到期日",
     "deleteWarranty": {
       "title": "删除保修",
       "deleteMessage": "您确定要删除此保修吗？",
@@ -199,6 +200,19 @@
       "actions": {
         "deleteButton": "是的，删除",
         "cancelButton": "不，取消"
+      }
+    },
+    "activateWarranty": {
+      "userInformation": "用户信息",
+      "fullName": "您的全名",
+      "phoneNumber": "您的电话号码",
+      "invoiceInformation": "发票信息",
+      "branchName": "分店名称",
+      "branchNumber": "分店编号",
+      "uploadPhoto": "上传照片",
+      "photoInfo": "必须上传可清晰看到数据的发票照片才能激活保修",
+      "actions": {
+        "activate": "激活保修"
       }
     }
   },

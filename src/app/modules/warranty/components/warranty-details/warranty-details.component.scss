@@ -1,0 +1,31 @@
+:host p-select ::ng-deep .p-select-label {
+    color: #FF9933 !important;
+    background: #4D4D4D !important;
+}
+
+:host p-select ::ng-deep .p-select-dropdown {
+    color: #FF9933 !important;
+    background: #4D4D4D !important;
+}
+
+::ng-deep .p-select {
+    border: 1px solid #FF9933 !important;
+}
+
+::ng-deep .p-select:not(.p-disabled).p-focus {
+    border-color: #FF9933 !important;
+}
+
+::ng-deep .p-select-option.p-select-option-selected {
+    color: #FF9933 !important;
+    background: #4D4D4D !important;
+}
+
+::ng-deep .p-select-option:not(.p-select-option-selected):not(.p-disabled).p-focus {
+    color: #FF9933 !important;
+    background: #4D4D4D !important;
+}
+
+::ng-deep .p-select-list {
+    padding: unset !important;
+}

@@ -116,9 +116,7 @@
                     {{ selectedWarranty?.model?.name }}
                 </div>
             </div>
-            @if(selectedWarranty?.modal?.qrCodes.length > 0) {
-                <qrcode [qrdata]="selectedWarranty?.modal?.qrCodes[0]?.code" [width]="150" [errorCorrectionLevel]="'M'"></qrcode>
-            }
+            <qrcode [qrdata]="warrantyURL" [width]="150" [errorCorrectionLevel]="'M'"></qrcode>
         </div>
     </p-dialog>
     <p-dialog [(visible)]="deleteVisible" styleClass="!border-0">

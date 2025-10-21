@@ -193,6 +193,7 @@
     "invoicePhoto": "صورة الفاتورة",
     "productName": "اسم المنتج",
     "modal": "نوع المنتج",
+    "expiresOn": "تاريخ انتهاء الضمان",
     "deleteWarranty": {
       "title": "حذف الضمان",
       "deleteMessage": "هل تريد حذف هذا الضمان؟",
@@ -200,6 +201,19 @@
       "actions": {
         "deleteButton": "نعم، احذف",
         "cancelButton": "لا، إلغاء"
+      }
+    },
+    "activateWarranty": {
+      "userInformation": "معلومات المستخدم",
+      "fullName": "الاسم الكامل",
+      "phoneNumber": "رقم الهاتف",
+      "invoiceInformation": "معلومات الفاتورة",
+      "branchName": "اسم الفرع",
+      "branchNumber": "رقم الفرع",
+      "uploadPhoto": "تحميل الصورة",
+      "photoInfo": "يجب تحميل صورة الفاتورة ببيانات واضحة لتفعيل الضمان",
+      "actions": {
+        "activate": "تفعيل الضمان"
       }
     }
   },

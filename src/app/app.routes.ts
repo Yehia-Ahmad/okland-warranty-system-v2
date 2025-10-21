@@ -38,6 +38,11 @@ export const routes: Routes = [
         loadComponent: () => import('./modules/warranty/components/activate-warranty/activate-warranty.component').then(m => m.ActivateWarrantyComponent)
     },
     {
+        path: 'warranty-details/:id',
+        canActivate: [authGuard],
+        loadComponent: () => import('./modules/warranty/components/warranty-details/warranty-details.component').then(m => m.WarrantyDetailsComponent)
+    },
+    {
         path: '**',
         canActivate: [authGuard],
         loadComponent: () => import('./modules/layout/components/home/home.component').then(m => m.HomeComponent)

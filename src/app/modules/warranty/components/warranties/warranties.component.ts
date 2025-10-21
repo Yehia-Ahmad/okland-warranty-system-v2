@@ -53,6 +53,8 @@ export class WarrantiesComponent {
   isDarkMode$;
   errorVisible = false;
   errorMessage = '';
+  selectedQr: any;
+  warrantyURL: string;
 
 
   constructor(private _themeService: ThemeService, private fb: FormBuilder, private cdr: ChangeDetectorRef, private _warrantyService: WarrantyService) {
@@ -119,8 +121,13 @@ export class WarrantiesComponent {
 
   showDialog(mode: string, warranty: any) {
     this.selectedWarranty = warranty;
+    this.selectedQr = warranty.model.qrCodes.filter((qr: any) => qr.warranty == this.selectedWarranty._id)[0];
+    this.warrantyURL = `${window.location.origin}/warranty-details/${this.selectedWarranty._id}`
+    console.log(this.selectedWarranty);
+    console.log(this.selectedQr);
     this.mode = mode;
     this.visible = true;
+    this.cdr.detectChanges();
   }
 
   showDeleteDialog(warranty: any) {
