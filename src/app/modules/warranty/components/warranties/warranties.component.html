@@ -116,7 +116,7 @@
                     {{ selectedWarranty?.model?.name }}
                 </div>
             </div>
-            <qrcode [qrdata]="warrantyURL" [width]="150" [errorCorrectionLevel]="'M'"></qrcode>
+            <qrcode [qrdata]="warrantyURL" [width]="130" [errorCorrectionLevel]="'M'"></qrcode>
         </div>
     </p-dialog>
     <p-dialog [(visible)]="deleteVisible" styleClass="!border-0">
@@ -141,7 +141,7 @@
                     <p-button label="{{ 'warranty.actions.cancelButton' | translate }}" (click)="closeDialog()" [text]="true"
                         styleClass="!p-4 w-full !uppercase !text-xl !font-bold !text-gray_dark !bg-orange !font-roboto !border !border-white/30"
                         class="w-full" />
-                    <p-button label="{{ 'warranty.actions.deleteButton' | translate }}" (click)="closeDialog()" [text]="true"
+                    <p-button label="{{ !isLoading ? ('warranty.actions.deleteButton' | translate) : ('actions.loading' | translate) }}" (click)="closeDialog()" [text]="true"
                         styleClass="!p-4 w-full !uppercase !text-xl !font-bold !text-light_orange !bg-red !font-roboto !border !border-white/30"
                         class="w-full" />
                 </div>

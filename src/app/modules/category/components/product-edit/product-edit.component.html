@@ -90,7 +90,7 @@
             {{ 'category.deleteProduct.title' | translate }}
         </button>
         <button class="px-8 py-1 text-xl font-semibold font-roboto capitalize disabled:opacity-50 disabled:cursor-wait bg-orange text-dark rounded-md" [disabled]="loading" (click)="updateProduct()">
-            {{ 'category.editProduct.actions.save' | translate }}
+            {{ !isLoading ? ('category.editProduct.actions.save' | translate) : ('actions.loading' | translate) }}
         </button>
     </div>
 
@@ -113,9 +113,9 @@
                         {{ 'category.deleteProduct.actions.cancelButton' | translate }}
                     </button>
                     <button (click)="closeDialog()"
-                        class="px-4 py-2 w-max uppercase text-xl font-semibold rounded-md text-light_orange bg-red font-roboto border border-white/30" (click)="deleteProduct()"
+                        class="px-4 py-2 w-max uppercase text-xl font-semibold rounded-md text-light_orange bg-red font-roboto border border-white/30" (click)="deleteProduct()" [disabled]="isLoading"
                         >
-                        {{ 'category.deleteProduct.actions.deleteButton' | translate }}
+                        {{ !isLoading ? ('category.deleteProduct.actions.deleteButton' | translate) : ('actions.loading' | translate) }}
                     </button>
                 </div>
             </div>

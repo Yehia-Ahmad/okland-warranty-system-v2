@@ -18,6 +18,7 @@ import { ErrorIconComponent } from "../../../assets/error/error-icon.component";
   styleUrl: './product-edit.component.scss'
 })
 export class ProductEditComponent {
+  isLoading: boolean = false;
   productId: any;
   product: any = {};
   watt: any;
@@ -74,11 +75,14 @@ export class ProductEditComponent {
   }
 
   updateProduct() {
+    this.loading = true;
     this._cateoryService.updateProduct(this.productId, this.product).subscribe({
       next: (res: any) => {
+        this.loading = false;
         this.cdr.detectChanges();
         this.location.back();
       }, error: (err: any) => {
+        this.loading = false;
         this.errorVisible = true;
         this.errorMessage = err.error.message;
         this.cdr.detectChanges();

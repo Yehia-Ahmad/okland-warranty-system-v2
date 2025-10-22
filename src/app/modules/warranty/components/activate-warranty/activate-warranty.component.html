@@ -57,8 +57,8 @@
             <span class="font-light text-base text-center leading-6 tracking-tight text-orange">
                 {{ 'warranty.activateWarranty.photoInfo' | translate }}
             </span>
-            <button class="w-max py-2 px-4 flex items-center gap-2 font-medium text-xl uppercase rounded-md font-roboto text-dark bg-blue" (click)="activateWarranty()" >
-                {{ 'warranty.activateWarranty.actions.activate' | translate }}
+            <button class="w-max py-2 px-4 flex items-center gap-2 font-medium text-xl uppercase rounded-md font-roboto text-dark bg-blue" (click)="activateWarranty()" [disabled]="isLoading">
+                {{ !isLoading ? ('warranty.activateWarranty.actions.activate' | translate) : ('actions.loading' | translate) }}
             </button>
         </div>
     </div>

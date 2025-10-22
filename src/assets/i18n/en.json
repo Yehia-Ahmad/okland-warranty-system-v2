@@ -13,6 +13,13 @@
         "warranties": "Warranties",
         "add_new_category": "Add New Category"
     },
+    "actions": {
+        "save": "Save",
+        "creating": "Creating...",
+        "loading": "Loading...",
+        "cancelButton": "No Cancel",
+        "deleteButton": "Yes Delete"
+    },
     "addProduct": "Add Product",
     "tableHeaders": {
         "name": "Name",
@@ -104,6 +111,7 @@
             "description": "Product Description",
             "category": "Product Category",
             "uploadImage": "Upload Image",
+            "changeImage": "Change Image",
             "actions": {
                 "save": "Save Product",
                 "creating": "Creating..."

@@ -14,6 +14,13 @@
     "add_new_category": "اضافة فئة جديدة"
 
   },
+  "actions": {
+    "save": "حفظ",
+    "creating": "جاري الإنشاء...",
+    "loading": "جاري التحميل...",
+    "cancelButton": "لا، إلغاء",
+    "deleteButton": "نعم، حذف"
+  },
   "addProduct": "إضافة منتج",
   "tableHeaders": {
     "name": "الاسم",
@@ -105,6 +112,7 @@
       "description":"وصف المنتج",
       "category": "فئة المنتج",
       "uploadImage": "تحميل صورة",
+      "changeImage": "تغيير صورة",
       "actions": {
         "save": "حفظ المنتج",
         "creating": "جاري الإنشاء..."

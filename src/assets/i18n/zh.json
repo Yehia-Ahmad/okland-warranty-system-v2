@@ -13,6 +13,13 @@
     "warranties": "保修",
     "add_new_category": "添加新类别"
   },
+  "actions": {
+    "save": "保存",
+    "creating": "正在创建...",
+    "loading": "正在加载...",
+    "cancelButton": "否，取消",
+    "deleteButton": "是，删除"
+  },
   "addProduct": "添加产品",
   "tableHeaders": {
     "name": "姓名",
@@ -104,6 +111,7 @@
       "description": "产品描述",
       "category": "产品类别",
       "uploadImage": "上传图片",
+      "changeImage": "更改图像",
       "actions": {
         "save": "保存产品",
         "creating": "正在创建..."

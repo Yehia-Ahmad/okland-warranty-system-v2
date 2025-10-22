@@ -19,6 +19,7 @@ import { ErrorIconComponent } from "../../../assets/error/error-icon.component";
   styleUrl: './admins.component.scss'
 })
 export class AdminsComponent {
+  isLoading: boolean = false;
   admins: any[] = [];
   selectedUser: any;
   visible: boolean = false;
@@ -84,12 +85,15 @@ export class AdminsComponent {
   }
 
   addUser() {
+    this.isLoading = true;
     this.changeForm.value.role = this.changeForm.value.role.toLowerCase();
     this._adminsService.createUser(this.changeForm.value).subscribe({
       next: (res: any) => {
+        this.isLoading = false;
         this.getAllUsers();
         this.visible = false;
       }, error: (err: any) => {
+        this.isLoading = false;
         this.errorVisible = true;
         this.errorMessage = err.error.message;
         this.cdr.detectChanges();
@@ -98,13 +102,16 @@ export class AdminsComponent {
   }
 
   updateUser() {
+    this.isLoading = true;
     this.changeForm.value.role = this.changeForm.value.role.toLowerCase();
     this._adminsService.updateUser(this.selectedUser._id, this.changeForm.value).subscribe({
       next: (res: any) => {
+        this.isLoading = false;
         this.getAllUsers();
         this.visible = false;
         this.selectedUser = null;
       }, error: (err: any) => {
+        this.isLoading = false;
         this.errorVisible = true;
         this.errorMessage = err.error.message;
         this.cdr.detectChanges();
@@ -113,12 +120,15 @@ export class AdminsComponent {
   }
 
   deleteUser() {
+    this.isLoading = true;
     this._adminsService.deleteUser(this.selectedUser._id).subscribe({
       next: (res: any) => {
+        this.isLoading = false;
         this.getAllUsers();
         this.deleteVisible = false;
         this.selectedUser = null;
       }, error: (err: any) => {
+        this.isLoading = false;
         this.errorVisible = true;
         this.errorMessage = err.error.message;
         this.cdr.detectChanges();

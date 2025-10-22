@@ -44,6 +44,8 @@ export class CustomSidenavComponent implements OnInit {
   categoryToDelete: any = null;
   addCategory: FormGroup;
   isDarkMode$;
+  role: any = JSON.parse(localStorage.getItem("userProfile")).role;
+
   constructor(private _themeService: ThemeService, private sanitizer: DomSanitizer, private _cateoryService: CateoryService, private fb: FormBuilder, private cdr: ChangeDetectorRef, private _router: Router) {
     this.initalizeAddCategory();
     this.isDarkMode$ = this._themeService.isDarkMode$;
@@ -51,11 +53,14 @@ export class CustomSidenavComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllCategories();
-    this.buildMenuItems();
     runInInjectionContext(this._injector, () => {
       effect(() => {
         const lang = this._languageService.selectedLanguage();
-        this.buildMenuItems();
+        if(this.role == "admin") {
+          this.buildAdminMenuItems();
+        } else {
+          this.buildCustomerMenuItems();
+        }
       });
     });
   }
@@ -77,11 +82,15 @@ export class CustomSidenavComponent implements OnInit {
       res.data.map((category: any) => {
         this.categories.push({ label: category.name, route: `/categories/${category._id}`, id: category._id })     
       });
-      this.buildMenuItems();
+      if (this.role == "admin") {
+        this.buildAdminMenuItems();
+      } else {
+        this.buildCustomerMenuItems();
+      }
     })
   }
 
-  buildMenuItems() {
+  buildAdminMenuItems() {
     this.menuItems.set([
       {
         label: 'sidebarTitles.admins',
@@ -98,6 +107,41 @@ export class CustomSidenavComponent implements OnInit {
         `),
         route: '/admins'
       },
+      {
+        label: 'sidebarTitles.categories',
+        icon: this.sanitize(`
+        <span class="block w-8 h-8">
+            <svg width="100%" height="100%" viewBox="0 0 31 28" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/"
+                style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                <path
+                    d="M14.349,0.699c0.793,-0.367 1.709,-0.367 2.502,-0l11.637,5.376c0.452,0.208 0.74,0.661 0.74,1.161c-0,0.5 -0.288,0.953 -0.74,1.16l-11.637,5.377c-0.793,0.367 -1.709,0.367 -2.502,-0l-11.637,-5.377c-0.452,-0.213 -0.739,-0.665 -0.739,-1.16c-0,-0.495 0.287,-0.953 0.739,-1.161l11.637,-5.376Zm11.307,10.881l2.832,1.309c0.452,0.208 0.74,0.66 0.74,1.161c-0,0.5 -0.288,0.953 -0.74,1.16l-11.637,5.377c-0.793,0.367 -1.709,0.367 -2.502,-0l-11.637,-5.377c-0.452,-0.213 -0.739,-0.665 -0.739,-1.16c-0,-0.495 0.287,-0.953 0.739,-1.161l2.832,-1.309l8.092,3.737c1.245,0.575 2.683,0.575 3.928,-0l8.092,-3.737Zm-8.092,10.55l8.092,-3.737l2.832,1.31c0.452,0.208 0.74,0.66 0.74,1.16c-0,0.501 -0.288,0.953 -0.74,1.161l-11.637,5.376c-0.793,0.368 -1.709,0.368 -2.502,0l-11.637,-5.376c-0.452,-0.213 -0.739,-0.665 -0.739,-1.161c-0,-0.495 0.287,-0.952 0.739,-1.16l2.832,-1.31l8.092,3.737c1.245,0.575 2.683,0.575 3.928,0Z"
+                    style="fill:#2f2f2f;fill-rule:nonzero;" />
+            </svg>
+        </span>
+        `),
+        children: this.categories,
+      },
+      {
+        label: 'sidebarTitles.warranties',
+        icon: this.sanitize(`
+        <span class="block w-8 h-8">
+            <svg width="100%" height="100%" viewBox="0 0 28 34" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/"
+                style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                <path
+                    d="M0.999,0.994c0.602,-0.247 1.31,-0.158 1.813,0.228l2.86,2.189l2.86,-2.189c0.637,-0.487 1.578,-0.487 2.208,-0l2.86,2.189l2.86,-2.189c0.637,-0.487 1.579,-0.487 2.209,-0l2.86,2.189l2.86,-2.189c0.502,-0.386 1.21,-0.475 1.812,-0.228c0.601,0.247 0.991,0.785 0.991,1.38l-0,29.362c-0,0.595 -0.39,1.133 -0.991,1.379c-0.602,0.247 -1.31,0.159 -1.812,-0.227l-2.86,-2.19l-2.86,2.19c-0.637,0.487 -1.579,0.487 -2.209,-0l-2.86,-2.19l-2.86,2.19c-0.637,0.487 -1.578,0.487 -2.208,-0l-2.86,-2.19l-2.86,2.19c-0.503,0.386 -1.211,0.474 -1.813,0.227c-0.601,-0.246 -0.991,-0.784 -0.991,-1.379l0,-29.362c0,-0.595 0.39,-1.133 0.991,-1.38Zm5.805,8.973c-0.623,0 -1.132,0.456 -1.132,1.013c-0,0.557 0.509,1.012 1.132,1.012l13.592,0c0.623,0 1.133,-0.455 1.133,-1.012c-0,-0.557 -0.51,-1.013 -1.133,-1.013l-13.592,0Zm-1.132,13.163c-0,0.557 0.509,1.012 1.132,1.012l13.592,0c0.623,0 1.133,-0.455 1.133,-1.012c-0,-0.557 -0.51,-1.013 -1.133,-1.013l-13.592,0c-0.623,0 -1.132,0.456 -1.132,1.013Zm1.132,-7.088c-0.623,0 -1.132,0.456 -1.132,1.013c-0,0.557 0.509,1.012 1.132,1.012l13.592,0c0.623,0 1.133,-0.455 1.133,-1.012c-0,-0.557 -0.51,-1.013 -1.133,-1.013l-13.592,0Z"
+                    style="fill:#2f2f2f;fill-rule:nonzero;" />
+            </svg>
+        </span>
+        `),
+        route: '/warranties'
+      }
+    ])
+  }
+
+  buildCustomerMenuItems() {
+    this.menuItems.set([
       {
         label: 'sidebarTitles.categories',
         icon: this.sanitize(`

@@ -128,6 +128,7 @@ export class CategoryDetailsComponent {
     this.visible = false;
     this.showAddModelDialog = false;
     this.showModelQrCodesDialog = false;
+    this.resetForm();
   }
 
   showAddModelDialogHandler() {
@@ -166,6 +167,7 @@ export class CategoryDetailsComponent {
       next: (res: any) => {
         this.hideDialog();
         this.getProducts();
+        this.resetForm();
         this.isAddingProduct = false;
       },
       error: (err: any) => {
@@ -175,6 +177,11 @@ export class CategoryDetailsComponent {
         this.cdr.detectChanges();
       }
     });
+  }
+
+  resetForm() {
+    this.addProductForm.reset();
+    this.imagePreview = null;
   }
 
   createModel() {

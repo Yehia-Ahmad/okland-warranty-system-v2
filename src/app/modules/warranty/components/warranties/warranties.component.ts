@@ -28,6 +28,7 @@ import { PaginationComponent } from "../../../shared/components/pagination/pagin
 })
 export class WarrantiesComponent {
   private baseUrl = environment.api_base_url;
+  isLoading: boolean = false;
   warranties: any[] = [];
   visible: boolean = false;
   deleteVisible: boolean = false;
@@ -136,12 +137,15 @@ export class WarrantiesComponent {
   }
 
   deleteWarranty() {
+    this.isLoading = true;
     this._warrantyService.deleteWarranty(this.selectedWarranty.id).subscribe({
       next: (res: any) => {
+        this.isLoading = false;
         this.getAllWarranties();
         this.deleteVisible = false;
         this.cdr.detectChanges();
       }, error: (err: any) => {
+        this.isLoading = false;
         this.errorVisible = true;
         this.errorMessage = err.error.message;
         this.cdr.detectChanges();

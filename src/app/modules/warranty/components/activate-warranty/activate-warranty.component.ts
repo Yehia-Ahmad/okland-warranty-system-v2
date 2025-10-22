@@ -22,6 +22,7 @@ import { MoonComponent } from "../../../assets/moon/moon.component";
   styleUrl: './activate-warranty.component.scss'
 })
 export class ActivateWarrantyComponent {
+  isLoading = false;
   i18n: any[] = [
     {
       name: 'English',
@@ -68,6 +69,7 @@ export class ActivateWarrantyComponent {
   }
 
   activateWarranty() {
+    this.isLoading = true;
     let formData = new FormData();
     formData.append('qrCode', this.activateForm.qrCode);
     formData.append('username', this.activateForm.username);
@@ -79,9 +81,11 @@ export class ActivateWarrantyComponent {
     formData.append('invoiceImage', this.activateForm.invoiceImage);
     this._warrantyService.activateWarranty(formData).subscribe({
       next: (res: any) => {
+        this.isLoading = false;
         this._router.navigate(['/warranty-details', res.data.warrantyId]);
       },
       error: (err: any) => {
+        this.isLoading = false;
         this.errorVisible = true;
         this.errorMessage = err.error.message;
       }
