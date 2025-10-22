@@ -219,55 +219,55 @@ export class CategoryDetailsComponent {
         this.isPrinting = false;
         this.cdr.detectChanges();
         const printContent = `
-<html>
-  <head>
-    <title>QR Codes</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        padding: 20px;
-        text-align: center;
-      }
-      .qr-grid {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 16px;
-      }
-      .qr-item {
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        padding: 12px;
-        text-align: center;
-        width: 180px;
-      }
-      img {
-        width: 150px;
-        height: 150px;
-      }
-      h3 {
-        margin: 10px 0 0 0;
-        font-size: 16px;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>QR Codes for ${this.selectedProduct?.name}</h1>
-    <div class="qr-grid">
-      ${this.qrCodes
-            .map(
-              (qr) => `
-            <div class="qr-item">
-              <img src="${qr.qrCodeImage}" alt="${qr.activationUrl}" />
-              <h3>${qr.code}</h3>
+        <html>
+          <head>
+            <title>QR Codes</title>
+            <style>
+              body {
+                font-family: Arial, sans-serif;
+                padding: 20px;
+                text-align: center;
+              }
+              .qr-grid {
+                display: flex;
+                flex-direction: column;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: center;
+                gap: 16px;
+              }
+              .qr-item {
+                border: none;
+                border-radius: 8px;
+                padding: 12px;
+                text-align: center;
+                width: 180px;
+              }
+              img {
+                width: 150px;
+                height: 150px;
+              }
+              h3 {
+                margin: 10px 0 0 0;
+                font-size: 16px;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="qr-grid">
+              ${this.qrCodes
+                    .map(
+                      (qr) => `
+                    <div class="qr-item">
+                      <img src="${qr.qrCodeImage}" alt="${qr.activationUrl}" />
+                    </div>
+                  `
+                    )
+                    .join('')}
             </div>
-          `
-            )
-            .join('')}
-    </div>
-  </body>
-</html>
-`;
+          </body>
+        </html>
+        `;
 
         const printWindow = window.open('', '_blank', 'width=900,height=650');
         if (printWindow) {
