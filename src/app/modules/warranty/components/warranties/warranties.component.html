@@ -119,7 +119,7 @@
             <qrcode [qrdata]="warrantyURL" [width]="130" [errorCorrectionLevel]="'M'"></qrcode>
         </div>
     </p-dialog>
-    <p-dialog [(visible)]="deleteVisible" styleClass="!border-0">
+    <p-dialog [(visible)]="deleteVisible" styleClass="!border-0" [style]="{ width: '35vw' }">
         <ng-template #headless>
             <div class="flex flex-col px-8 py-8 gap-6 rounded-2xl bg-[#393939]">
                 <div class="w-full flex items-center justify-center">
@@ -128,7 +128,7 @@
                 <div class="flex items-center justify-center">
                     <h1 class="text-4xl font-bold font-azonix text-orange">{{ 'warranty.deleteWarranty.title' | translate }}</h1>
                 </div>
-                <h6 class="text-lg font-semibold font-roboto text-light_orange">
+                <h6 class="text-center text-lg font-semibold font-roboto text-light_orange">
                     {{ 'warranty.deleteWarranty.deleteMessage' | translate }}
                 </h6>
                 <div class="w-max mx-auto my-2 px-10 py-4 flex flex-col items-center justify-center rounded-md bg-[#1f1f1f]">
@@ -137,13 +137,16 @@
                     </span>
                     <span class="font-semibold text-4xl leading-7 tracking-wider text-blue">27/9/2026</span>
                 </div>
-                <div class="flex items-center gap-4">
-                    <p-button label="{{ 'warranty.actions.cancelButton' | translate }}" (click)="closeDialog()" [text]="true"
-                        styleClass="!p-4 w-full !uppercase !text-xl !font-bold !text-gray_dark !bg-orange !font-roboto !border !border-white/30"
-                        class="w-full" />
-                    <p-button label="{{ !isLoading ? ('warranty.actions.deleteButton' | translate) : ('actions.loading' | translate) }}" (click)="closeDialog()" [text]="true"
-                        styleClass="!p-4 w-full !uppercase !text-xl !font-bold !text-light_orange !bg-red !font-roboto !border !border-white/30"
-                        class="w-full" />
+                <div class="flex justify-center items-center gap-4">
+                    <button (click)="closeDialog()"[style]="{ fontWeight: 600 }"
+                        class="w-max px-4 py-2 uppercase text-2xl font-semibold rounded-md text-gray_dark bg-orange font-roboto border border-white/30">
+                        {{ 'warranty.deleteWarranty.actions.cancelButton' | translate }}
+                    </button>
+                    <button (click)="closeDialog()"
+                        class="px-4 py-2 w-max uppercase text-xl font-semibold rounded-md text-light_orange bg-red font-roboto border border-white/30"
+                        (click)="deleteWarranty()" [disabled]="isLoading">
+                        {{ !isLoading ? ('warranty.deleteWarranty.actions.deleteButton' | translate) : ('actions.loading' | translate) }}
+                    </button>
                 </div>
             </div>
         </ng-template>

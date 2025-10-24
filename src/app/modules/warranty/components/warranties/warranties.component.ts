@@ -141,8 +141,8 @@ export class WarrantiesComponent {
     this._warrantyService.deleteWarranty(this.selectedWarranty.id).subscribe({
       next: (res: any) => {
         this.isLoading = false;
+        this.closeDialog();
         this.getAllWarranties();
-        this.deleteVisible = false;
         this.cdr.detectChanges();
       }, error: (err: any) => {
         this.isLoading = false;
