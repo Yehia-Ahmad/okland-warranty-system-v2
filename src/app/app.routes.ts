@@ -34,12 +34,12 @@ export const routes: Routes = [
     },
     {
         path: 'activate-warranty/:id',
-        canActivate: [authGuard],
+        // canActivate: [authGuard],
         loadComponent: () => import('./modules/warranty/components/activate-warranty/activate-warranty.component').then(m => m.ActivateWarrantyComponent)
     },
     {
         path: 'warranty-details/:id',
-        canActivate: [authGuard],
+        // canActivate: [authGuard],
         loadComponent: () => import('./modules/warranty/components/warranty-details/warranty-details.component').then(m => m.WarrantyDetailsComponent)
     },
     {

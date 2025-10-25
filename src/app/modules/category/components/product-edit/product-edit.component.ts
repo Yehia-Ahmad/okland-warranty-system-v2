@@ -76,7 +76,17 @@ export class ProductEditComponent {
 
   updateProduct() {
     this.loading = true;
-    this._cateoryService.updateProduct(this.productId, this.product).subscribe({
+    const formData = new FormData();
+    formData.append('name', this.product.name);
+    formData.append('model', this.product.model);
+    formData.append('brand', this.product.brand);
+    formData.append('watt', this.product.watt);
+    formData.append('lumen', this.product.lumen);
+    formData.append('description', this.product.description);
+    if (this.product.image instanceof File) {
+      formData.append('image', this.product.image);
+    }
+    this._cateoryService.updateProduct(this.productId, formData).subscribe({
       next: (res: any) => {
         this.loading = false;
         this.cdr.detectChanges();
@@ -106,6 +116,7 @@ export class ProductEditComponent {
       reader.onload = () => {
         const base64String = reader.result as string;
         this.imagePreview = base64String;
+        // this.product.image = file;
         this.product.image = base64String;
         this.cdr.detectChanges();
       };

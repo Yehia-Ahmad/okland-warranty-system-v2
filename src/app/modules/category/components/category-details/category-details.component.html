@@ -114,7 +114,7 @@
     </p-dialog>
 
     <!-- Add Product Dialog -->
-    <p-dialog [modal]="true" [(visible)]="visible" [style]="{ width: '35vw' }">
+    <p-dialog [modal]="true" [(visible)]="visible" [style]="{ width: '35vw', height: '90vh' }" [contentStyle]="{ overflow: 'auto' }">
         <div class="flex justify-center items-center">
             <h1 class="text-4xl font-bold font-azonix text-orange">{{ 'category.addProduct.title' | translate }}</h1>
         </div>
@@ -149,7 +149,7 @@
 
             <div class="w-full flex flex-col gap-2 items-start">
                 <label class="text-lg font-medium font-roboto text-light_orange" for="category">{{ 'category.addProduct.category' | translate }}</label>
-                <p-select [options]="categories" optionLabel="name" optionValue="_id" placeholder="Select Category"
+                <p-select [options]="categories" optionLabel="name" optionValue="_id" appendTo="body" placeholder="Select Category"
                     class="w-full" formControlName="category"></p-select>
             </div>
 

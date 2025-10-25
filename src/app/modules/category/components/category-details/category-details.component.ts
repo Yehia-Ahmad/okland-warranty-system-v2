@@ -221,50 +221,150 @@ export class CategoryDetailsComponent {
         const printContent = `
         <html>
           <head>
-            <title>QR Codes</title>
+            <title>OKLAND Warranty QR Codes</title>
             <style>
-              body {
-                font-family: Arial, sans-serif;
-                padding: 20px;
-                text-align: center;
+              @font-face {
+                font-family: "Azonix";
+                src: url(/assets/fonts/Azonix.otf) format("opentype");
               }
-              .qr-grid {
+              @page {
+                size: A4;
+                margin: 10mm;
+              }
+              body {
+                font-family: 'Arial', sans-serif;
                 display: flex;
                 flex-direction: column;
-                flex-wrap: wrap;
                 align-items: center;
-                justify-content: center;
-                gap: 16px;
+                gap: 20px;
+                padding: 10px;
               }
-              .qr-item {
-                border: none;
-                border-radius: 8px;
+              .card {
+                border: 2px solid #000;
+                border-radius: 12px;
                 padding: 12px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                gap: 24px;
+                align-items: center;
+                box-sizing: border-box;
+              }
+              .info {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                gap: 6px;
+                font-size: 12px;
+                color: #000;
+              }
+              .strong {
+                background-color: #000;
+                color: #fff;
+                border-radius: 3px;
+                padding: 2px 6px;
+                display: inline-block;
+                margin-bottom: 2px;
+                font-size: 11px;
+              }
+              .desc {
+                color: #000;
+                background-color: #fff;
+                border: 1px solid #000;
+                border-radius: 3px;
+                padding: 2px 6px;
+                display: inline-block;
+                margin-bottom: 2px;
+                font-size: 11px;
+              }
+              .qr {
+                width: 90px;
+                height: 90px;
+                border: 3px solid #000;
+                border-radius: 6px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                overflow: hidden;
+              }
+              .qr img {
+                width: 85px;
+                height: 85px;
+              }
+              .title {
+                font-weight: bold;
+                font-size: 14px;
+                margin-top: 4px;
+              }
+              .activate {
+                font-weight: bold;
                 text-align: center;
-                width: 180px;
+                font-size: 12px;
+                margin-top: 4px;
               }
-              img {
-                width: 150px;
-                height: 150px;
+              .arabic {
+                font-weight: bold;
+                text-align: center;
+                font-size: 13px;
               }
-              h3 {
-                margin: 10px 0 0 0;
+              .title {
+                font-family: 'Azonix', sans-serif;
+              }
+              .flex-column {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+              }
+              .logo {
+                display: flex;
+                gap: 6px;
                 font-size: 16px;
+                font-weight: bold;
+              }
+              .logo img {
+                width: 40px;
+                height: 50px;
+              }
+              .okland {
+                margin-top: 8px;
+                width: 60px !important;
+                height: 15px !important;
+              }
+              @media print {
+                body {
+                  -webkit-print-color-adjust: exact !important;
+                  print-color-adjust: exact !important;
+                  color-adjust: exact !important;
+                }
               }
             </style>
           </head>
           <body>
-            <div class="qr-grid">
-              ${this.qrCodes
-                    .map(
-                      (qr) => `
-                    <div class="qr-item">
-                      <img src="${qr.qrCodeImage}" alt="${qr.activationUrl}" />
+            ${this.qrCodes.map(qr => `
+              <div class="card">
+                <div class="info">
+                  <div class="logo">
+                    <img src="/assets/img/lion.png" alt="Logo">
+                    <div class="flex-column">
+                      <img src="/assets/img/Okland Typography (Orange).png" alt="Logo" class="okland">
+                      <h4 class="title">
+                        WARRANTY
+                      </h4>
                     </div>
-                  `
-                    )
-                    .join('')}
-            </div>
+                  </div>
+                  <div class="strong"><strong>Product:</strong> ${this.selectedProduct.name}</div>
+                  <div class="strong"><strong>Model:</strong> ${this.name}</div>
+                  <div class="desc"><strong>Power:</strong> ${this.selectedProduct.watt}W</div>
+                  <div class="desc"><strong>Lumen:</strong> ${this.selectedProduct.lumen}LM</div>
+                  <div class="activate">Activate your Warranty</div>
+                  <div class="arabic">تفعيل الضمان</div>
+                </div>
+                <div class="qr">
+                  <img src="${qr.qrCodeImage}" alt="QR Code">
+                </div>
+              </div>
+            `).join('')}
           </body>
         </html>
         `;

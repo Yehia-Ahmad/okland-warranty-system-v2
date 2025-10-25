@@ -7,7 +7,7 @@
         'bg-light_card_bg': !(isDarkMode$ | async)
     }">
         <div class="w-full flex justify-between items-center">
-            <p-select [options]="i18n" [(ngModel)]="currentLang" (ngModelChange)="onLanguageChange($event)" optionLabel="name"
+            <p-select [options]="i18n" [(ngModel)]="currentLang" (ngModelChange)="onLanguageChange($event)" appendTo="body" optionLabel="name"
                 optionValue="id" placeholder="Select Language" class="custom-select w-32" [ngClass]="{
                           'light-mode-select': !(isDarkMode$ | async),
                           'dark-mode-select': (isDarkMode$ | async)
