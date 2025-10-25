@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { ButtonModule } from 'primeng/button';
-import { InvoiceCard } from "../../../assets/invoice-card/invoice-card";
+import { InvoiceCardComponent } from "../../../assets/invoice-card/invoice-card.component";
 import { Auth } from '../../services/auth';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms'; 
@@ -14,7 +14,7 @@ import { ErrorIconComponent } from "../../../assets/error/error-icon.component";
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, AngularSvgIconModule, ButtonModule, InvoiceCard, ReactiveFormsModule, DialogModule, ErrorIconComponent],
+  imports: [CommonModule, FormsModule, AngularSvgIconModule, ButtonModule, InvoiceCardComponent, ReactiveFormsModule, DialogModule, ErrorIconComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })

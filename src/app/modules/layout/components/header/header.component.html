@@ -37,9 +37,9 @@
         <button class="flex items-center justify-center border-none outline-none bg-transparent"
             (click)="toggleDarkMode()">
             @if (isDarkMode$ | async) {
-            <app-mode></app-mode>
+                <app-mode></app-mode>
             } @else {
-            <app-moon></app-moon>
+                <app-moon></app-moon>
             }
         </button>
     </div>

@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { SideNavComponent } from "../side-nav/side-nav.component";
 import { CommonModule } from '@angular/common';
-import { InvoiceCard } from '../../../assets/invoice-card/invoice-card';
+import { InvoiceCardComponent } from '../../../assets/invoice-card/invoice-card.component';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, InvoiceCard, SideNavComponent],
+  imports: [CommonModule, InvoiceCardComponent, SideNavComponent],
+  standalone: true,
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
 
