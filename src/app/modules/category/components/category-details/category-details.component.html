@@ -147,11 +147,11 @@
                     rows="3" cols="30" formControlName="description"></textarea>
             </div>
 
-            <div class="w-full flex flex-col gap-2 items-start">
+            <!-- <div class="w-full flex flex-col gap-2 items-start">
                 <label class="text-lg font-medium font-roboto text-light_orange" for="category">{{ 'category.addProduct.category' | translate }}</label>
                 <p-select [options]="categories" optionLabel="name" optionValue="_id" appendTo="body" placeholder="Select Category"
                     class="w-full" formControlName="category"></p-select>
-            </div>
+            </div> -->
 
             <div class="w-full flex flex-col gap-2 items-center rounded-md bg-gray_light" (click)="fileInput.click()">
                 <input #fileInput accept="image/*" type="file" class="hidden" (change)="onBasicUploadAuto($event)" />

@@ -87,7 +87,7 @@ export class CategoryDetailsComponent {
       watt: [''],
       lumen: [''],
       description: [''],
-      category: [''],
+      category: [this.categoryId],
       image: ['']
     });
   }
