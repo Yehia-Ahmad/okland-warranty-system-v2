@@ -70,7 +70,6 @@ export class CategoryDetailsComponent {
     this._activatedRoute.params.subscribe(params => {
       this.categoryId = params['id'];
       setTimeout(() => {
-        this.getCategoryDetails();
         this.getAllCategories();
         this.getProducts();
       }, 100);
@@ -96,6 +95,8 @@ export class CategoryDetailsComponent {
     this._cateoryService.getCategories().subscribe({
       next: (res: any) => {
         this.categories = res.data;
+        this.categoryDetails = this.categories.filter(cat => cat._id == this.categoryId)[0];
+        this.cdr.detectChanges();
       }, 
       error: (err) => {
         this.errorVisible = true;

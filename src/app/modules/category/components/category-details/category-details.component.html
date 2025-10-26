@@ -4,13 +4,14 @@
             'bg-gray_dark': isDarkMode$ | async,
             'bg-light_card_bg': !(isDarkMode$ | async)
         }">
-            @defer (when categoryDetails) {
-            <h2 class="text-2xl font-bold font-azonix text-orange">
-                okland {{ categoryDetails?.name }}
-            </h2>
-            } @placeholder {
-            <h2 class="text-2xl font-bold font-azonix text-orange">Loading...</h2>
-            }
+            <div class="flex items-center justify-start gap-4">
+                <h2 class="text-2xl font-bold font-azonix text-orange">
+                    okland {{ categoryDetails?.name }}
+                </h2>
+                @if(categoryDetails?.createdBy?.role == 'customer') {
+                    <h2 class="px-3 py-1 rounded-md text-xl font-bold font-azonix text-white bg-orange">{{ categoryDetails?.createdBy?.username }}</h2>
+                }
+            </div>
             <p-button label="{{ 'category.addProduct.title' | translate }}"
                 styleClass="!ml-auto !text-2xl !font-semibold !font-roboto !text-gray_dark !bg-light_orange !rounded-md !py-1 !px-8"
                 (click)="showDialog()" [disabled]="isAddingProduct || isCreatingModel || isCreatingQrCodes" />
