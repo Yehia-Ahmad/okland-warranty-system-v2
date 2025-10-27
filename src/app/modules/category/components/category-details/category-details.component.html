@@ -108,7 +108,7 @@
         <div class="w-full grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 my-6">
             @for(qrCode of qrCodes; track qrCode?._id) {
             <div class="w-full flex flex-col items-center gap-2 py-3 px-5 rounded-lg">
-                <qrcode [qrdata]="qrCode.fullUrl" [width]="150" [errorCorrectionLevel]="'M'"></qrcode>
+                <qrcode [qrdata]="qrCode.fullUrl" [width]="150" [allowEmptyString]="true" [errorCorrectionLevel]="'M'"></qrcode>
             </div>
             }
         </div>
