@@ -7,7 +7,6 @@ import { DialogModule } from "primeng/dialog";
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { SelectModule } from "primeng/select";
-import { environment } from '../../../../../environments/environment';
 import { QRCodeComponent } from 'angularx-qrcode';
 import { TranslatePipe } from '@ngx-translate/core';
 import { ThemeService } from '../../../shared/services/theme.service';
@@ -32,7 +31,6 @@ import { ErrorIconComponent } from "../../../assets/error/error-icon.component";
   styleUrl: './category-details.component.scss'
 })
 export class CategoryDetailsComponent {
-  private baseUrl = environment.api_base_url2;
   categoryId: number;
   categoryDetails: any;
   visible: boolean = false;
