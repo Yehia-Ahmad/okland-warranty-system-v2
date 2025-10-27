@@ -105,7 +105,7 @@ export class ActivateWarrantyComponent {
 
       // Prepare FormData to send binary
       const formData = new FormData();
-      this.activateForm.invoiceImage = file; // 'invoiceImage' is the backend field name
+      this.activateForm.invoiceImage = this.imagePreview; // 'invoiceImage' is the backend field name
       console.log(formData.get('invoiceImage'));
     }
   }
