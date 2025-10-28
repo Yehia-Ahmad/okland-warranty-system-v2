@@ -20,7 +20,7 @@
                 <p-datepicker  class="w-full bg-transparent" [(ngModel)]="date" (change)="getAllWarranties()" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" />
             </div>
         </div>
-        <div class="w-full p-4 pb-0 rounded-xl" [ngClass]="{
+        <div class="w-full p-4 pb-0 rounded-xl overflow-auto" [ngClass]="{
             'bg-gray_dark': isDarkMode$ | async,
             'bg-light_card_bg': !(isDarkMode$ | async)
         }">
@@ -60,7 +60,7 @@
                                 'text-light_orange': isDarkMode$ | async,
                                 'text-orange': !(isDarkMode$ | async)
                             }">
-                            <img src="{{ warranty.fullUrl }}" alt="Invoice" class="w-16 h-16">
+                            <img [src]="warranty.invoiceImage" alt="Invoice" class="w-16 h-16">
                         </td>
                         <td class="py-4 px-4 border-r border-r-[#a1a1a1]" [ngClass]="{
                                 'text-light_orange': isDarkMode$ | async,
