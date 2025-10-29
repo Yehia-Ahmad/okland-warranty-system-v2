@@ -79,7 +79,8 @@ export class ActivateWarrantyComponent {
     formData.append('startDate', this.activateForm.startDate);
     formData.append('duration', this.activateForm.duration);
     formData.append('invoiceImage', this.activateForm.invoiceImage);
-    this._warrantyService.activateWarranty(formData).subscribe({
+    console.log(this.activateForm);
+    this._warrantyService.activateWarranty(this.activateForm).subscribe({
       next: (res: any) => {
         this.isLoading = false;
         this._router.navigate(['/warranty-details', res.data.warrantyId]);
@@ -98,14 +99,16 @@ export class ActivateWarrantyComponent {
       // Optional: show image preview
       const reader = new FileReader();
       reader.onload = () => {
+        const base64String = reader.result as string;
         this.imagePreview = reader.result as string;
         this.cdr.detectChanges();
+        this.activateForm.invoiceImage = base64String;
       };
       reader.readAsDataURL(file);
 
       // Prepare FormData to send binary
       const formData = new FormData();
-      this.activateForm.invoiceImage = this.imagePreview; // 'invoiceImage' is the backend field name
+      // this.activateForm.invoiceImage = this.imagePreview; // 'invoiceImage' is the backend field name
       console.log(formData.get('invoiceImage'));
     }
   }
