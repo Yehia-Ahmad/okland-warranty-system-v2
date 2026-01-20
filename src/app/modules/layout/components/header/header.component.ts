@@ -39,7 +39,6 @@ export class HeaderComponent {
 
   constructor(private _languageService: LanguageService, private _themeService: ThemeService) {
     this.currentLang = _languageService.selectedLanguage();
-    console.log(this.currentLang);
     this.isDarkMode$ = this._themeService.isDarkMode$
 
   }
@@ -49,7 +48,6 @@ export class HeaderComponent {
   }
 
   onLanguageChange(lang: string) {
-    console.log(lang);
     this._languageService.changeLanguage(lang);
     this.currentLang = lang;
   }

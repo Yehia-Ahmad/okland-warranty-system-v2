@@ -49,7 +49,6 @@ export class WarrantyDetailsComponent {
 
 
   onLanguageChange(lang: string) {
-    console.log(lang);
     this._languageService.changeLanguage(lang);
     this.currentLang = lang;
   }

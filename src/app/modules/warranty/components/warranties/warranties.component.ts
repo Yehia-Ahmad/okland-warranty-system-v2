@@ -87,14 +87,12 @@ export class WarrantiesComponent {
     this._warrantyService.getAllWarranties(params).subscribe({
       next: (res: any) => {
         this.baseUrl = environment.api_base_url.replace('api/', 'api');
-        console.log(this.baseUrl);
         res.data = res.data.map((warranty: any) => {
           return {
             ...warranty,
             fullUrl: `${this.baseUrl}${warranty.invoiceImage}`
           }
         });
-        console.log(res);
         this.warranties = res.data;
         this.totalPages = res.pages;
         this.cdr.detectChanges();
@@ -124,8 +122,6 @@ export class WarrantiesComponent {
     this.selectedWarranty = warranty;
     this.selectedQr = warranty.model.qrCodes.filter((qr: any) => qr.warranty == this.selectedWarranty._id)[0];
     this.warrantyURL = `${window.location.origin}/warranty-details/${this.selectedWarranty._id}`
-    console.log(this.selectedWarranty);
-    console.log(this.selectedQr);
     this.mode = mode;
     this.visible = true;
     this.cdr.detectChanges();
@@ -169,7 +165,6 @@ export class WarrantiesComponent {
   }
   
   onPageChange(page: number) {
-    console.log('Selected page:', page);
     // call your API with new page here
     this.currentPage = page;
     this.getAllWarranties();

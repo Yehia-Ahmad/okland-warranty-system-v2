@@ -63,7 +63,6 @@ export class ActivateWarrantyComponent {
 
 
   onLanguageChange(lang: string) {
-    console.log(lang);
     this._languageService.changeLanguage(lang);
     this.currentLang = lang;
   }
@@ -79,8 +78,7 @@ export class ActivateWarrantyComponent {
     formData.append('startDate', this.activateForm.startDate);
     formData.append('duration', this.activateForm.duration);
     formData.append('invoiceImage', this.activateForm.invoiceImage);
-    console.log(this.activateForm);
-    this._warrantyService.activateWarranty(this.activateForm).subscribe({
+    this._warrantyService.activateWarranty(formData).subscribe({
       next: (res: any) => {
         this.isLoading = false;
         this._router.navigate(['/warranty-details', res.data.warrantyId]);
@@ -101,15 +99,14 @@ export class ActivateWarrantyComponent {
       reader.onload = () => {
         const base64String = reader.result as string;
         this.imagePreview = reader.result as string;
-        this.cdr.detectChanges();
         this.activateForm.invoiceImage = base64String;
+        this.cdr.detectChanges();
       };
       reader.readAsDataURL(file);
 
       // Prepare FormData to send binary
       const formData = new FormData();
       // this.activateForm.invoiceImage = this.imagePreview; // 'invoiceImage' is the backend field name
-      console.log(formData.get('invoiceImage'));
     }
   }
 
