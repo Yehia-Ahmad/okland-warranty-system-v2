@@ -13,6 +13,7 @@ import { ErrorIconComponent } from "../../../assets/error/error-icon.component";
 import { TranslatePipe } from '@ngx-translate/core';
 import { LanguageService } from '../../../shared/services/translation.service';
 import { MoonComponent } from "../../../assets/moon/moon.component";
+import { CateoryService } from '../../../category/services/cateory.service';
 
 @Component({
   selector: 'app-activate-warranty',
@@ -53,16 +54,33 @@ export class ActivateWarrantyComponent {
   };
   errorVisible = false;
   errorMessage = '';
-  
-  constructor(private _warrantyService: WarrantyService, private _activatedRoute: ActivatedRoute, private _languageService: LanguageService, private _themeService: ThemeService, private cdr: ChangeDetectorRef, private _router: Router) {
+
+  constructor(private _cateoryService: CateoryService, private _warrantyService: WarrantyService, private _activatedRoute: ActivatedRoute, private _languageService: LanguageService, private _themeService: ThemeService, private cdr: ChangeDetectorRef, private _router: Router) {
     this.isDarkMode$ = this._themeService.isDarkMode$;
     this.activateForm.qrCode = this._activatedRoute.snapshot.params['id'];
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.verifyWarranty()
+  }
 
+  verifyWarranty() {
+    this.isLoading = true;
+    this._cateoryService.veryQrCode(this.activateForm.qrCode).subscribe({
+      next: (res: any) => {
+        this.isLoading = false;
+        this._router.navigate(['/warranty-details', res.data.warrantyId]);
+      },
+      error: (err: any) => {
+        this.isLoading = false;
+        this.errorVisible = true;
+        this.errorMessage = err.error.message;
+      }
+    });
+  }
 
   onLanguageChange(lang: string) {
+    console.log(lang);
     this._languageService.changeLanguage(lang);
     this.currentLang = lang;
   }
@@ -78,7 +96,8 @@ export class ActivateWarrantyComponent {
     formData.append('startDate', this.activateForm.startDate);
     formData.append('duration', this.activateForm.duration);
     formData.append('invoiceImage', this.activateForm.invoiceImage);
-    this._warrantyService.activateWarranty(formData).subscribe({
+    console.log(this.activateForm);
+    this._warrantyService.activateWarranty(this.activateForm).subscribe({
       next: (res: any) => {
         this.isLoading = false;
         this._router.navigate(['/warranty-details', res.data.warrantyId]);
@@ -99,14 +118,15 @@ export class ActivateWarrantyComponent {
       reader.onload = () => {
         const base64String = reader.result as string;
         this.imagePreview = reader.result as string;
-        this.activateForm.invoiceImage = base64String;
         this.cdr.detectChanges();
+        this.activateForm.invoiceImage = base64String;
       };
       reader.readAsDataURL(file);
 
       // Prepare FormData to send binary
       const formData = new FormData();
       // this.activateForm.invoiceImage = this.imagePreview; // 'invoiceImage' is the backend field name
+      console.log(formData.get('invoiceImage'));
     }
   }
 
